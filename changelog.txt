@@ -14,3 +14,12 @@ v0.2.1 -----------------------------------------------------------------
 * converted the !!quit command into a proper bot.command() instead of a 
 on_message() command
 * .gitignore update to exclude the python cache
+
+------------------------------------------------------------------------
+v0.3.0 -----------------------------------------------------------------
+* added !!say command
+* added !!info command
+* added !!october18 command
+* transferred the version into an .env variable
+* the bot will now show when it's in dev mode (as in when it's running 
+locally, rather than running on heroku)

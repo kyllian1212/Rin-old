@@ -16,6 +16,7 @@ import song_library as sl
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
+VERSION = os.getenv('VERSION')
 
 bot = commands.Bot(command_prefix="!!")
 
@@ -37,7 +38,7 @@ async def on_ready():
         print(f'Guild Members:\n - {members}')
 
         #bot version to be changed here for now - v major.minor.bugfix-dev
-        init_message_embed = discord.Embed(title="bot has successfully booted up.", description="*bot version: v0.2.1*", color=0x00aeff)
+        init_message_embed = discord.Embed(title="bot has successfully booted up.", description="*bot version: " + VERSION + "*", color=0x00aeff)
         init_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")))
 
         bot.loop.create_task(status_task())
@@ -71,6 +72,49 @@ async def quit(ctx):
     except:
         await crash_handler()
         raise
+
+@bot.command()
+async def say(ctx, *, arg):
+    try:
+        guild = bot.get_guild(186610204023062528)
+        mod_role = guild.get_role(219977258453041152)
+        message_author = ctx.author
+        is_mod = False
+        for role in message_author.roles:
+            if role == mod_role:
+                is_mod = True
+        if is_mod:
+            await ctx.message.delete()
+            await ctx.channel.send(arg)
+    except:
+        await crash_handler()
+        raise
+
+@bot.command()
+async def info(ctx):
+    try:
+        now = datetime.now()
+        kyllian_user = ctx.message.author
+        info_message_embed = discord.Embed(title="Rin-bot by " + str(kyllian_user.name) + "#" + str(kyllian_user.discriminator), description="*bot version " + VERSION + "*", url="https://github.com/kyllian1212/Rin", color=0x00aeff)
+        info_message_embed.set_thumbnail(url=kyllian_user.avatar_url)
+        info_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")) + "  •  source code available by clicking the link above", icon_url=bot.user.avatar_url)
+        await ctx.channel.send(embed=info_message_embed)
+    except:
+        await crash_handler()
+        raise
+
+@bot.command()
+async def october18(ctx):
+    try:
+        dad_message_embed = discord.Embed(title="To: Rin", description="**From: Dad**", color=0x00aeff)
+        dad_message_embed.set_thumbnail(url=bot.user.avatar_url)
+        dad_message_embed.add_field(name="Message", value="There was just so little time left after you were born. \nI don't know how much love I managed to pour into raising you after your mother died... \nBut your smile kept me going. (^_^) \n\nI would like to have come with you, but I couldn't. \nI wanted you to forget everything and move on... \nI knew you'd be alright. But you'll get lonely, and remember. \n\nI know you'll grow strong, and read this letter some day. \nI really wish we could have spent more time together. I'm sorry. \nYou were so young back then, too young to understand what they meant. So let me repeat... \n\nMy final words to you.", inline=False)
+        dad_message_embed.set_footer(text="19/10/2016 - 04:00:00 (JST)")
+        await ctx.channel.send(embed=dad_message_embed)
+    except:
+        await crash_handler()
+        raise
+
 
 @bot.event
 async def on_reaction_add(reaction, user):
@@ -155,7 +199,10 @@ async def status_task():
         await bot.wait_until_ready()
         while True:
             random_variable = random.randint(0, (len(sl.song_library)-1))
-            await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=sl.song_library[random_variable][0]))
+            if str(VERSION).endswith("-dev"):
+                await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name="[DEV MODE] " + sl.song_library[random_variable][0]))
+            else:
+                await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=sl.song_library[random_variable][0]))
             #DONT FORGET TO AWAIT A ASYNCIO.SLEEP() COMMAND!!!!!
             await asyncio.sleep(sl.song_library[random_variable][1])
     except:
