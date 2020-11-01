@@ -137,4 +137,4 @@ async def on_reaction_add(reaction, user):
 async def mod_only_command(message):
     await message.channel.send("you cannot do this action as you are not a mod!")
 
-bot.run(TOKEN)
+client.run(TOKEN)
