@@ -3,23 +3,24 @@ import os
 
 import discord
 from dotenv import load_dotenv
-from datetime import date
+from datetime import datetime
 
 import sys
 import asyncio
-
-today = date.today()
+import traceback
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
 
-
-
 client = discord.Client()
+
+
 
 @client.event
 async def on_ready():
+    now = datetime.now()
+
     for guild in client.guilds:
         if guild.name == GUILD:
             break
@@ -32,9 +33,13 @@ async def on_ready():
     members = '\n - '.join([member.name for member in guild.members])
     print(f'Guild Members:\n - {members}')
 
+    init_message_embed = discord.Embed(title="bot has successfully booted up.", color=0x00aeff)
+    init_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")))
+    await client.get_channel(772219545082396692).send(embed=init_message_embed)
+
 @client.event
 async def on_message(message):
-    #allow to quit only if a mod is doing this
+    now = datetime.now()
     guild = client.get_guild(186610204023062528)
     mod_role = guild.get_role(219977258453041152)
     message_author = message.author
@@ -45,32 +50,37 @@ async def on_message(message):
                 is_mod = True
         if is_mod:
             await message.channel.send("bot has been shutdown.")
+            quit_message_embed = discord.Embed(title="bot has successfully shutdown.", color=0x00aeff)
+            quit_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")))
+            await client.get_channel(772219545082396692).send(embed=quit_message_embed)
             await exit()
         else:
             await mod_only_command(message)
 
 @client.event
 async def on_reaction_add(reaction, user):
-    if reaction.count == 1:
-        channel_report = client.get_channel(771121618260852776)
-        guild = client.get_guild(186610204023062528)
-        mod_role = guild.get_role(219977258453041152)
-        reacted_message = reaction.message
-        reacted_message_content = reacted_message.content
-        reacted_message_author = reaction.message.author
-        reacted_message_author_roles = None
-        long_message = False
-        mod_report = False
-        description = ""
+    try:
+        now = datetime.now()
+        if reaction.count == 1:
+            channel_report = client.get_channel(413488194819194891)
+            guild = client.get_guild(186610204023062528)
+            mod_role = guild.get_role(219977258453041152)
+            reacted_message = reaction.message
+            reacted_message_content = reacted_message.content
+            reacted_message_author = reaction.message.author
+            reacted_message_author_roles = None
+            long_message = False
+            mod_report = False
+            description = ""
 
-        for role in reacted_message_author.roles:
-            if role.name != '@everyone':
-                if reacted_message_author_roles is None:
-                    reacted_message_author_roles = str(role)
-                else:
-                    reacted_message_author_roles = str(reacted_message_author_roles) + ", " + str(role)
+            for role in reacted_message_author.roles:
+                if role.name != '@everyone':
+                    if reacted_message_author_roles is None:
+                        reacted_message_author_roles = str(role)
+                    else:
+                        reacted_message_author_roles = str(reacted_message_author_roles) + ", " + str(role)
 
-        try:
+            
             if reaction.emoji == '🚫':
                 #if a user auto reacts 🚫 to their message, it just deletes it without reporting it
                 if user == reacted_message_author:
@@ -102,22 +112,25 @@ async def on_reaction_add(reaction, user):
                         reported_message_embed.add_field(name="Message", value=reacted_message_content, inline=False)
                         reported_message_part2_embed = discord.Embed(description="*The message is over 1000 characters, so it has been split into 2 Discord embeds.*", color=0xff0000)
                         reported_message_part2_embed.add_field(name="Message (part 2)", value=reacted_message_content_part2, inline=False)
-                        reported_message_part2_embed.set_footer(text="Reported by " + str(user.name) + "#" + str(user.discriminator), icon_url=user.avatar_url)
+                        reported_message_part2_embed.set_footer(text="Reported by " + str(user.name) + "#" + str(user.discriminator) + "  •  " + str(now.strftime("%d/%m/%Y - %H:%M:%S")), icon_url=user.avatar_url)
                     else:
                         #if the message only contains an attachment
                         if len(reacted_message_content) != 0:
                             reported_message_embed.add_field(name="Message", value=reacted_message_content, inline=False)
                         else:
                             reported_message_embed.add_field(name="Attachment", value="*The reported message only contained an attachment; make sure to have it saved before reporting it as the bot cannot currently save (deleted) pictures. You can also give out a description of the attachment below*", inline=False)
-                        reported_message_embed.set_footer(text="Reported by " + str(user.name) + "#" + str(user.discriminator) + " • " + str(today.strftime("%d/%m/%Y")), icon_url=user.avatar_url)
+                        reported_message_embed.set_footer(text="Reported by " + str(user.name) + "#" + str(user.discriminator) + "  •  " + str(now.strftime("%d/%m/%Y - %H:%M:%S")), icon_url=user.avatar_url)
 
                     await channel_report.send(embed=reported_message_embed)
                     if long_message == True:
-                        await channel_report.send(embed=reported_message_part2_embed)
-                
-        except:
-            await channel_report.send("it crashed :(")
-            raise
+                        await channel_report.sen(embed=reported_message_part2_embed)
+                    
+    except:
+        crash_traceback = traceback.format_exc()
+        crash_message_embed = discord.Embed(title="it crashed :(", description=crash_traceback, color=0xff0000)
+        reported_message_part2_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")))
+        await client.get_channel(772219545082396692).send(embed=crash_message_embed)
+        raise
 
 @client.event
 async def mod_only_command(message):
