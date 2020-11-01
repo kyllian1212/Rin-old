@@ -4,3 +4,4 @@ PyNaCl
 dnspython
 requests
 asyncio
+dotenv
