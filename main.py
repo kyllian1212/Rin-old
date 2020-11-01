@@ -4,7 +4,8 @@ import os
 import discord
 from dotenv import load_dotenv
 from datetime import datetime
-
+from discord.ext import commands
+from discord.ext.commands import bot
 import sys
 import asyncio
 import traceback
@@ -136,5 +137,4 @@ async def on_reaction_add(reaction, user):
 async def mod_only_command(message):
     await message.channel.send("you cannot do this action as you are not a mod!")
 
-
-client.run(TOKEN)
+bot.run(TOKEN)
