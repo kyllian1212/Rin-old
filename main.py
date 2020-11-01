@@ -14,20 +14,18 @@ load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
 
-client = discord.Client()
+bot = commands.Bot(command_prefix="!!")
 
-
-
-@client.event
+@bot.event
 async def on_ready():
     now = datetime.now()
 
-    for guild in client.guilds:
+    for guild in bot.guilds:
         if guild.name == GUILD:
             break
 
     print(
-        f'{client.user} is connected to the following guild:\n'
+        f'{bot.user} is connected to the following guild:\n'
         f'{guild.name}(id: {guild.id})\n'
     )
 
@@ -36,12 +34,12 @@ async def on_ready():
 
     init_message_embed = discord.Embed(title="bot has successfully booted up.", color=0x00aeff)
     init_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")))
-    await client.get_channel(772219545082396692).send(embed=init_message_embed)
+    await bot.get_channel(772219545082396692).send(embed=init_message_embed)
 
-@client.event
+@bot.event
 async def on_message(message):
     now = datetime.now()
-    guild = client.get_guild(186610204023062528)
+    guild = bot.get_guild(186610204023062528)
     mod_role = guild.get_role(219977258453041152)
     message_author = message.author
     is_mod = False
@@ -53,18 +51,18 @@ async def on_message(message):
             await message.channel.send("bot has been shutdown.")
             quit_message_embed = discord.Embed(title="bot has successfully shutdown.", color=0x00aeff)
             quit_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")))
-            await client.get_channel(772219545082396692).send(embed=quit_message_embed)
+            await bot.get_channel(772219545082396692).send(embed=quit_message_embed)
             await exit()
         else:
             await mod_only_command(message)
 
-@client.event
+@bot.event
 async def on_reaction_add(reaction, user):
     try:
         now = datetime.now()
         if reaction.count == 1:
-            channel_report = client.get_channel(413488194819194891)
-            guild = client.get_guild(186610204023062528)
+            channel_report = bot.get_channel(413488194819194891)
+            guild = bot.get_guild(186610204023062528)
             mod_role = guild.get_role(219977258453041152)
             reacted_message = reaction.message
             reacted_message_content = reacted_message.content
@@ -130,11 +128,11 @@ async def on_reaction_add(reaction, user):
         crash_traceback = traceback.format_exc()
         crash_message_embed = discord.Embed(title="it crashed :(", description=crash_traceback, color=0xff0000)
         reported_message_part2_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")))
-        await client.get_channel(772219545082396692).send(embed=crash_message_embed)
+        await bot.get_channel(772219545082396692).send(embed=crash_message_embed)
         raise
 
-@client.event
+@bot.event
 async def mod_only_command(message):
     await message.channel.send("you cannot do this action as you are not a mod!")
 
-client.run(TOKEN)
+bot.run(TOKEN)
