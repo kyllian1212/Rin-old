@@ -34,7 +34,7 @@ async def on_ready():
     print(f'Guild Members:\n - {members}')
 
     #bot version to be changed here for now
-    init_message_embed = discord.Embed(title="bot has successfully booted up.", description="bot version: v0.1.0", color=0x00aeff)
+    init_message_embed = discord.Embed(title="bot has successfully booted up.", description="*bot version: v0.1.1*", color=0x00aeff)
     init_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")))
 
     bot.loop.create_task(status_task())
@@ -160,3 +160,5 @@ async def status_task():
 
 if __name__ == "__main__":
     bot.run(TOKEN)
+
+#bot log: heroku logs --tail
