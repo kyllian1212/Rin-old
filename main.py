@@ -37,7 +37,7 @@ async def on_ready():
         print(f'Guild Members:\n - {members}')
 
         #bot version to be changed here for now - v major.minor.bugfix-dev
-        init_message_embed = discord.Embed(title="bot has successfully booted up.", description="*bot version: v0.2.0*", color=0x00aeff)
+        init_message_embed = discord.Embed(title="bot has successfully booted up.", description="*bot version: v0.2.1*", color=0x00aeff)
         init_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")))
 
         bot.loop.create_task(status_task())
@@ -48,28 +48,26 @@ async def on_ready():
         await crash_handler()
         raise
 
-#turn the !!quit event into a bot.command()
-@bot.event
-async def on_message(message):
+@bot.command()
+async def quit(ctx):
     try:
         now = datetime.now()
         guild = bot.get_guild(186610204023062528)
         mod_role = guild.get_role(219977258453041152)
-        message_author = message.author
+        message_author = ctx.author
         is_mod = False
-        if message.content.startswith("!!quit"):
-            for role in message_author.roles:
-                if role == mod_role:
-                    is_mod = True
-            if is_mod:
-                await message.channel.send("bot has been shutdown.")
-                quit_message_embed = discord.Embed(title="bot has successfully shutdown.", color=0x00aeff)
-                quit_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")))
-                await bot.get_channel(772219545082396692).send(embed=quit_message_embed)
-                await bot.loop.stop()
-                await exit()
-            else:
-                await mod_only_command(message)
+        for role in message_author.roles:
+            if role == mod_role:
+                is_mod = True
+        if is_mod:
+            await ctx.channel.send("bot has been shutdown.")
+            quit_message_embed = discord.Embed(title="bot has successfully shutdown.", color=0x00aeff)
+            quit_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")))
+            await bot.get_channel(772219545082396692).send(embed=quit_message_embed)
+            await bot.loop.stop()
+            await exit()
+        else:
+            await mod_only_command(ctx)
     except:
         await crash_handler()
         raise

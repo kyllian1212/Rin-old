@@ -10,3 +10,7 @@ v0.1.2 -----------------------------------------------------------------
 v0.2.0 -----------------------------------------------------------------
 * added more songs into the library
 * added a proper crash handler
+v0.2.1 -----------------------------------------------------------------
+* converted the !!quit command into a proper bot.command() instead of a 
+on_message() command
+* .gitignore update to exclude the python cache
