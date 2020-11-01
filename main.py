@@ -11,6 +11,8 @@ import asyncio
 import traceback
 import random
 
+import song_library as sl
+
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
@@ -19,49 +21,58 @@ bot = commands.Bot(command_prefix="!!")
 
 @bot.event
 async def on_ready():
-    now = datetime.now()
+    try:
+        now = datetime.now()
 
-    for guild in bot.guilds:
-        if guild.name == GUILD:
-            break
+        for guild in bot.guilds:
+            if guild.name == GUILD:
+                break
 
-    print(
-        f'{bot.user} is connected to the following guild:\n'
-        f'{guild.name}(id: {guild.id})\n'
-    )
+        print(
+            f'{bot.user} is connected to the following guild:\n'
+            f'{guild.name}(id: {guild.id})\n'
+        )
 
-    members = '\n - '.join([member.name for member in guild.members])
-    print(f'Guild Members:\n - {members}')
+        members = '\n - '.join([member.name for member in guild.members])
+        print(f'Guild Members:\n - {members}')
 
-    #bot version to be changed here for now
-    init_message_embed = discord.Embed(title="bot has successfully booted up.", description="*bot version: v0.1.2*", color=0x00aeff)
-    init_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")))
+        #bot version to be changed here for now - v major.minor.bugfix-dev
+        init_message_embed = discord.Embed(title="bot has successfully booted up.", description="*bot version: v0.2.0*", color=0x00aeff)
+        init_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")))
 
-    bot.loop.create_task(status_task())
+        bot.loop.create_task(status_task())
 
-    #full boot sequence successfully completed
-    await bot.get_channel(772219545082396692).send(embed=init_message_embed)
+        #full boot sequence successfully completed
+        await bot.get_channel(772219545082396692).send(embed=init_message_embed)
+    except:
+        await crash_handler()
+        raise
 
 #turn the !!quit event into a bot.command()
 @bot.event
 async def on_message(message):
-    now = datetime.now()
-    guild = bot.get_guild(186610204023062528)
-    mod_role = guild.get_role(219977258453041152)
-    message_author = message.author
-    is_mod = False
-    if message.content.startswith("!!quit"):
-        for role in message_author.roles:
-            if role == mod_role:
-                is_mod = True
-        if is_mod:
-            await message.channel.send("bot has been shutdown.")
-            quit_message_embed = discord.Embed(title="bot has successfully shutdown.", color=0x00aeff)
-            quit_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")))
-            await bot.get_channel(772219545082396692).send(embed=quit_message_embed)
-            await exit()
-        else:
-            await mod_only_command(message)
+    try:
+        now = datetime.now()
+        guild = bot.get_guild(186610204023062528)
+        mod_role = guild.get_role(219977258453041152)
+        message_author = message.author
+        is_mod = False
+        if message.content.startswith("!!quit"):
+            for role in message_author.roles:
+                if role == mod_role:
+                    is_mod = True
+            if is_mod:
+                await message.channel.send("bot has been shutdown.")
+                quit_message_embed = discord.Embed(title="bot has successfully shutdown.", color=0x00aeff)
+                quit_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")))
+                await bot.get_channel(772219545082396692).send(embed=quit_message_embed)
+                await bot.loop.stop()
+                await exit()
+            else:
+                await mod_only_command(message)
+    except:
+        await crash_handler()
+        raise
 
 @bot.event
 async def on_reaction_add(reaction, user):
@@ -129,36 +140,53 @@ async def on_reaction_add(reaction, user):
 
                     await channel_report.send(embed=reported_message_embed)
                     if long_message == True:
-                        await channel_report.sen(embed=reported_message_part2_embed)
+                        await channel_report.send(embed=reported_message_part2_embed)
 
     #put crash handler in another function   
     except:
-        crash_traceback = traceback.format_exc()
-        crash_message_embed = discord.Embed(title="it crashed :(", description=crash_traceback, color=0xff0000)
-        crash_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")))
-        await bot.get_channel(772219545082396692).send(embed=crash_message_embed)
+        await crash_handler()
         raise
 
 @bot.event
 async def mod_only_command(message):
     await message.channel.send("you cannot do this action as you are not a mod!")
 
+#rin presence
 async def status_task():
-    await bot.wait_until_ready()
-    #put this in another variable asap
-    song_library=[
-        ["Divinity", 120],
-        ["Sad Machine", 120],
-        ["Flicker", 120],
-        ["Fresh Static Snow", 120]
-    ]
-    while True:
-        random_variable = random.randint(0, (len(song_library)-1))
-        await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=song_library[random_variable][0]))
-        #DONT FORGET TO AWAIT A ASYNCIO.SLEEP() COMMAND!!!!!
-        await asyncio.sleep(song_library[random_variable][1])
+    try:
+        await bot.wait_until_ready()
+        while True:
+            random_variable = random.randint(0, (len(sl.song_library)-1))
+            await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=sl.song_library[random_variable][0]))
+            #DONT FORGET TO AWAIT A ASYNCIO.SLEEP() COMMAND!!!!!
+            await asyncio.sleep(sl.song_library[random_variable][1])
+    except:
+        await crash_handler()
+        raise
 
+#crash handler
+async def crash_handler():
+    try:
+        now = datetime.now()
+        crash_traceback = traceback.format_exc()
+        crash_message_embed = discord.Embed(title="it crashed :(", description=crash_traceback, color=0xff0000)
+        crash_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")))
+        await bot.get_channel(772219545082396692).send(embed=crash_message_embed)
+    except:
+        try:
+            now = datetime.now()
+            crash_traceback = traceback.format_exc()
+            crash_message_embed = discord.Embed(title="the crash handler crashed!! D:", description=crash_traceback, color=0xff0000)
+            crash_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")))
+            await bot.get_channel(772219545082396692).send(embed=crash_message_embed)
+        except:
+            raise
+
+#launch bot
 if __name__ == "__main__":
-    bot.run(TOKEN)
+    try:
+        bot.run(TOKEN)
+    except:
+        raise
 
 #bot log: heroku logs --tail
