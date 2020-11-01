@@ -9,6 +9,7 @@ from discord.ext.commands import bot
 import sys
 import asyncio
 import traceback
+import random
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -32,10 +33,16 @@ async def on_ready():
     members = '\n - '.join([member.name for member in guild.members])
     print(f'Guild Members:\n - {members}')
 
-    init_message_embed = discord.Embed(title="bot has successfully booted up.", color=0x00aeff)
+    #bot version to be changed here for now
+    init_message_embed = discord.Embed(title="bot has successfully booted up.", description="bot version: v0.1.0", color=0x00aeff)
     init_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")))
+
+    bot.loop.create_task(status_task())
+
+    #full boot sequence successfully completed
     await bot.get_channel(772219545082396692).send(embed=init_message_embed)
 
+#turn the !!quit event into a bot.command()
 @bot.event
 async def on_message(message):
     now = datetime.now()
@@ -123,7 +130,8 @@ async def on_reaction_add(reaction, user):
                     await channel_report.send(embed=reported_message_embed)
                     if long_message == True:
                         await channel_report.sen(embed=reported_message_part2_embed)
-                    
+
+    #put crash handler in another function   
     except:
         crash_traceback = traceback.format_exc()
         crash_message_embed = discord.Embed(title="it crashed :(", description=crash_traceback, color=0xff0000)
@@ -134,6 +142,21 @@ async def on_reaction_add(reaction, user):
 @bot.event
 async def mod_only_command(message):
     await message.channel.send("you cannot do this action as you are not a mod!")
+
+async def status_task():
+    await bot.wait_until_ready()
+    #put this in another variable asap
+    song_library=[
+        ["Divinity", 120],
+        ["Sad Machine", 120],
+        ["Flicker", 120],
+        ["Fresh Static Snow", 120]
+    ]
+    while True:
+        random_variable = random.randint(0, (len(song_library)-1))
+        await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=song_library[random_variable][0]))
+        #DONT FORGET TO AWAIT A ASYNCIO.SLEEP() COMMAND!!!!!
+        await asyncio.sleep(song_library[random_variable][1])
 
 if __name__ == "__main__":
     bot.run(TOKEN)
