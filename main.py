@@ -34,7 +34,7 @@ async def on_ready():
     print(f'Guild Members:\n - {members}')
 
     #bot version to be changed here for now
-    init_message_embed = discord.Embed(title="bot has successfully booted up.", description="*bot version: v0.1.1*", color=0x00aeff)
+    init_message_embed = discord.Embed(title="bot has successfully booted up.", description="*bot version: v0.1.2*", color=0x00aeff)
     init_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")))
 
     bot.loop.create_task(status_task())
@@ -135,7 +135,7 @@ async def on_reaction_add(reaction, user):
     except:
         crash_traceback = traceback.format_exc()
         crash_message_embed = discord.Embed(title="it crashed :(", description=crash_traceback, color=0xff0000)
-        reported_message_part2_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")))
+        crash_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")))
         await bot.get_channel(772219545082396692).send(embed=crash_message_embed)
         raise
 
