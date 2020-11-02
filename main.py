@@ -94,7 +94,7 @@ async def say(ctx, *, arg):
 async def info(ctx):
     try:
         now = datetime.now()
-        kyllian_user = ctx.message.author
+        kyllian_user = bot.get_user(171000921927581696)
         info_message_embed = discord.Embed(title="Rin-bot by " + str(kyllian_user.name) + "#" + str(kyllian_user.discriminator), description="*bot version " + VERSION + "*", url="https://github.com/kyllian1212/Rin", color=0x00aeff)
         info_message_embed.set_thumbnail(url=kyllian_user.avatar_url)
         info_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")) + "  •  source code available by clicking the link above", icon_url=bot.user.avatar_url)

@@ -23,3 +23,5 @@ v0.3.0 -----------------------------------------------------------------
 * transferred the version into an .env variable
 * the bot will now show when it's in dev mode (as in when it's running 
 locally, rather than running on heroku)
+v0.3.1 -----------------------------------------------------------------
+* fixed the !!info command (everyone used to create the bot lol)
