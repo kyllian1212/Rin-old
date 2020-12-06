@@ -30,7 +30,7 @@
 * full changelog is now in a markdown format
 * fixed the issue with the bot crashing if people react in another server
 * fixed the issue with edited messages not being able to be reported
-**## v0.3.3 - 06/12/2020** 
+## v0.3.3 - 06/12/2020
 * added !!lastchange
 * added madeon's adventure (deluxe) into the bot's presence
 * changed the bot's presence format ('song' by 'artist')
