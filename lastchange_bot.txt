@@ -3,6 +3,7 @@
 * added madeon's adventure (deluxe) into the bot's presence
 * changed the bot's presence format ('song' by 'artist')
 * fixed an issue where the bot would crash if someone reacted to a webhook/deleted user 
+* fixed the changelog links oops
 * normalized date format to dd/mm/yyyy
 
 

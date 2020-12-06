@@ -157,7 +157,7 @@ async def changelog(ctx):
     try:
         now = datetime.now()
         changelog = open('changelog_bot.txt', 'r').read()
-        changelog_message_embed = discord.Embed(title="Changelog", description=changelog, url="https://github.com/kyllian1212/Rin/blob/master/changelog.txt", color=0x00aeff)
+        changelog_message_embed = discord.Embed(title="Changelog", description=changelog, url="https://github.com/kyllian1212/Rin/blob/master/changelog.md", color=0x00aeff)
         changelog_message_embed.set_thumbnail(url=bot.user.avatar_url)
         changelog_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")) + "  •  full changelog available by clicking the link above")
         await ctx.channel.send(embed=changelog_message_embed)
@@ -171,7 +171,7 @@ async def lastchange(ctx):
         now = datetime.now()
         lastversion = "v0.3.3 - 06/12/2020"
         changelog = open('lastchange_bot.txt', 'r').read()
-        changelog_message_embed = discord.Embed(title="hello i've updated the bot :) | " + lastversion, description=changelog, url="https://github.com/kyllian1212/Rin/blob/master/changelog.txt", color=0x00aeff)
+        changelog_message_embed = discord.Embed(title="hello i've updated the bot :) | " + lastversion, description=changelog, url="https://github.com/kyllian1212/Rin/blob/master/changelog.md", color=0x00aeff)
         changelog_message_embed.set_thumbnail(url=bot.user.avatar_url)
         changelog_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")) + "  •  full changelog available by clicking the link above")
         await ctx.channel.send(embed=changelog_message_embed)
