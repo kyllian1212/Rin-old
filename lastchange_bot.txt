@@ -1,0 +1,8 @@
+**## v0.3.3 - 06/12/2020** 
+* added !!lastchange
+* added madeon's adventure (deluxe) into the bot's presence
+* changed the bot's presence format ('song' by 'artist')
+* fixed an issue where the bot would crash if someone reacted to a webhook/deleted user 
+* normalized date format to dd/mm/yyyy
+
+
