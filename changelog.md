@@ -37,4 +37,7 @@
 * fixed an issue where the bot would crash if someone reacted to a webhook/deleted user 
 * fixed the changelog links oops
 * normalized date format to dd/mm/yyyy
+## v0.3.4 - 11/12/2020
+* the bot will now automatically restart at a certain undisclosed time
+* little functional change to !!lastchange (just so that it's easier for me to edit versions lmfao)
 

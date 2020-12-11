@@ -20,10 +20,14 @@ GUILD = os.getenv('DISCORD_GUILD')
 #program version in .env and for git. if they're not matching, the program will quit. 
 #if its a -dev version, it will load anyway but with a warning.
 VERSION = os.getenv('VERSION')
-GIT_VERSION = "v0.3.3"
+GIT_VERSION = "v0.3.4"
+GIT_VERSION_DATE = "11/12/2020"
 
 #dev mode is when i run the bot locally
 devmode = False
+
+#reboot time is the time the bot has to reboot (after 24 hours of uptime). it is checked every second
+REBOOT_TIME = os.getenv('REBOOT_TIME')
 
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix="!!", intents=intents)
@@ -78,9 +82,11 @@ async def on_ready():
         init_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")))
 
         bot.loop.create_task(status_task())
+        bot.loop.create_task(reboot_time_check())
 
         #full boot sequence successfully completed
         await bot.get_channel(772219545082396692).send(embed=init_message_embed)
+        
     except:
         await crash_handler()
         await os._exit(-1)
@@ -169,7 +175,7 @@ async def changelog(ctx):
 async def lastchange(ctx):
     try:
         now = datetime.now()
-        lastversion = "v0.3.3 - 06/12/2020"
+        lastversion = GIT_VERSION + " - " + GIT_VERSION_DATE
         changelog = open('lastchange_bot.txt', 'r').read()
         changelog_message_embed = discord.Embed(title="hello i've updated the bot :) | " + lastversion, description=changelog, url="https://github.com/kyllian1212/Rin/blob/master/changelog.md", color=0x00aeff)
         changelog_message_embed.set_thumbnail(url=bot.user.avatar_url)
@@ -277,6 +283,33 @@ async def status_task():
     except:
         await crash_handler()
         raise
+
+#bot shutdown after 24 hours
+async def reboot_time_check():
+    try:
+        await bot.wait_until_ready()
+        while True:
+            now = datetime.now()
+            current_time = now.strftime("%H:%M:%S")
+            if current_time == REBOOT_TIME:
+                await shutdown_bot_after_24hrs(now)
+            else:
+                await asyncio.sleep(0.5)
+    except:
+        await crash_handler()
+        raise
+
+async def shutdown_bot_after_24hrs(now):
+    try:
+        quit_message_embed = discord.Embed(title="bot has successfully shutdown.", description="*bot has been shutdown because it has ran for almost 24 hours. it will restart as soon as possible.*", color=0x00aeff)
+        quit_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")))
+        await bot.get_channel(772219545082396692).send(embed=quit_message_embed)
+        await bot.loop.stop()
+        await os._exit(1)
+    except:
+        await crash_handler()
+        raise
+
 
 #crash handler
 async def crash_handler():
