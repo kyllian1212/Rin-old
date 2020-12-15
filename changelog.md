@@ -43,4 +43,4 @@
 ## v0.3.5 - 15/12/2020
 * added a very barebone !!roll command that throws a d6 dice
 * the bot now shows the version in it's nickname
-* !!lastchange has been removed and it's functionality moved to !!changelog (i felt like both comamnds were redundant)
+* !!lastchange has been removed and it's functionality was moved to !!changelog (i felt like both commands were redundant)
