@@ -40,4 +40,7 @@
 ## v0.3.4 - 11/12/2020
 * the bot will now automatically restart at a certain undisclosed time
 * little functional change to !!lastchange (just so that it's easier for me to edit versions lmfao)
-
+## v0.3.5 - 15/12/2020
+* added a very barebone !!roll command that throws a d6 dice
+* the bot now shows the version in it's nickname
+* !!lastchange has been removed and it's functionality moved to !!changelog (i felt like both comamnds were redundant)

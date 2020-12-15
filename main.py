@@ -19,9 +19,10 @@ GUILD = os.getenv('DISCORD_GUILD')
 
 #program version in .env and for git. if they're not matching, the program will quit. 
 #if its a -dev version, it will load anyway but with a warning.
+#make sure to change the version when updated!
 VERSION = os.getenv('VERSION')
-GIT_VERSION = "v0.3.4"
-GIT_VERSION_DATE = "11/12/2020"
+GIT_VERSION = "v0.3.5"
+GIT_VERSION_DATE = "15/12/2020"
 
 #dev mode is when i run the bot locally
 devmode = False
@@ -86,6 +87,7 @@ async def on_ready():
 
         #full boot sequence successfully completed
         await bot.get_channel(772219545082396692).send(embed=init_message_embed)
+        await bot.get_guild(186610204023062528).get_member(307932112294772737).edit(nick="Rin | " + VERSION)
         
     except:
         await crash_handler()
@@ -162,19 +164,6 @@ async def october18(ctx):
 async def changelog(ctx):
     try:
         now = datetime.now()
-        changelog = open('changelog_bot.txt', 'r').read()
-        changelog_message_embed = discord.Embed(title="Changelog", description=changelog, url="https://github.com/kyllian1212/Rin/blob/master/changelog.md", color=0x00aeff)
-        changelog_message_embed.set_thumbnail(url=bot.user.avatar_url)
-        changelog_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")) + "  •  full changelog available by clicking the link above")
-        await ctx.channel.send(embed=changelog_message_embed)
-    except:
-        await crash_handler()
-        raise
-
-@bot.command()
-async def lastchange(ctx):
-    try:
-        now = datetime.now()
         lastversion = GIT_VERSION + " - " + GIT_VERSION_DATE
         changelog = open('lastchange_bot.txt', 'r').read()
         changelog_message_embed = discord.Embed(title="hello i've updated the bot :) | " + lastversion, description=changelog, url="https://github.com/kyllian1212/Rin/blob/master/changelog.md", color=0x00aeff)
@@ -184,6 +173,16 @@ async def lastchange(ctx):
     except:
         await crash_handler()
         raise
+
+@bot.command()
+async def roll(ctx):
+    try:
+        random_variable = random.randint(1, 6)
+        await ctx.channel.send("1d6 roll result: **" + str(random_variable) + "**")
+    except:
+        await crash_handler()
+        raise
+
 
 @bot.event
 async def on_reaction_add(reaction, user):
