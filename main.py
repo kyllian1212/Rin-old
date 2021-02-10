@@ -21,14 +21,17 @@ GUILD = os.getenv('DISCORD_GUILD')
 #if its a -dev version, it will load anyway but with a warning.
 #make sure to change the version when updated!
 VERSION = os.getenv('VERSION')
-GIT_VERSION = "v0.3.5"
-GIT_VERSION_DATE = "15/12/2020"
+GIT_VERSION = "v0.3.6"
+GIT_VERSION_DATE = "11/02/2021"
 
 #dev mode is when i run the bot locally
 devmode = False
 
 #reboot time is the time the bot has to reboot (after 24 hours of uptime). it is checked every second
 REBOOT_TIME = os.getenv('REBOOT_TIME')
+
+#nurture time is for the countdown in #nurture
+NURTURE_TIME = os.getenv('NURTURE_TIME')
 
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix="!!", intents=intents)
@@ -84,6 +87,7 @@ async def on_ready():
 
         bot.loop.create_task(status_task())
         bot.loop.create_task(reboot_time_check())
+        bot.loop.create_task(countdown())
 
         #full boot sequence successfully completed
         await bot.get_channel(772219545082396692).send(embed=init_message_embed)
@@ -183,22 +187,58 @@ async def roll(ctx):
         await crash_handler()
         raise
 
+@bot.command()
+async def days_to_nurture(ctx):
+    try:
+        now = datetime.now()
+        nowdate = datetime.now().date().strftime("%Y-%m-%d")
+        d1 = datetime.strptime(nowdate, "%Y-%m-%d")
+        d2 = datetime.strptime("2021-04-23", "%Y-%m-%d")
+        diff = abs((d2 - d1).days)
+        changelog_message_embed = discord.Embed(title="There are " + str(diff) + " days left before Nurture releases (in the GMT timezone)", color=0x00aeff)
+        changelog_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")))
+        await ctx.channel.send(embed=changelog_message_embed)
+    except:
+        await crash_handler()
+        raise
+
+@bot.command()
+async def days_to_nurture_auto():
+    try:
+        now = datetime.now()
+        channel_nurture = bot.get_channel(671792848135389184)
+        nowdate = datetime.now().date().strftime("%Y-%m-%d")
+        d1 = datetime.strptime(nowdate, "%Y-%m-%d")
+        d2 = datetime.strptime("2021-04-23", "%Y-%m-%d")
+        diff = abs((d2 - d1).days)
+        if diff > 1:
+            changelog_message_embed = discord.Embed(title="There are " + str(diff) + " days left before Nurture releases (in the GMT timezone)", color=0x00aeff)
+        elif diff == 1:
+            changelog_message_embed = discord.Embed(title="There is " + str(diff) + " days left before Nurture releases (in the GMT timezone)", color=0x00aeff)
+        elif diff == 0:
+            changelog_message_embed = discord.Embed(title="NURTURE IS OUT NOW!! (in the GMT timezone)", color=0x00aeff)
+        changelog_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")))
+        await channel_nurture.send(embed=changelog_message_embed)
+    except:
+        await crash_handler()
+        raise
 
 @bot.event
 async def on_reaction_add(reaction, user):
     try:
         now = datetime.now()
+        reacted_message = reaction.message
+        reacted_message_content = reacted_message.content
+        reacted_message_author = reaction.message.author
+        reacted_message_author_roles = None
+        guild = bot.get_guild(186610204023062528)
+        mod_role = guild.get_role(219977258453041152)
+
         if reaction.count == 1:
             if devmode:
                 channel_report = bot.get_channel(775080183602085899)
             else:
                 channel_report = bot.get_channel(413488194819194891)
-            guild = bot.get_guild(186610204023062528)
-            mod_role = guild.get_role(219977258453041152)
-            reacted_message = reaction.message
-            reacted_message_content = reacted_message.content
-            reacted_message_author = reaction.message.author
-            reacted_message_author_roles = None
             long_message = False
             mod_report = False
             description = ""
@@ -257,6 +297,15 @@ async def on_reaction_add(reaction, user):
                             await channel_report.send(embed=reported_message_embed)
                             if long_message == True:
                                 await channel_report.send(embed=reported_message_part2_embed)
+        elif reaction.count > 1:
+            if reaction.emoji == '🚫':
+                #if a user auto reacts 🚫 to their message, it just deletes it without reporting it
+                if user == reacted_message_author:
+                    await reacted_message.delete()
+                else:
+                    for role in user.roles:
+                        if role == mod_role:
+                            await reacted_message.delete()
 
     #put crash handler in another function   
     except:
@@ -309,6 +358,20 @@ async def shutdown_bot_after_24hrs(now):
         await crash_handler()
         raise
 
+#countdown post
+async def countdown():
+    try:
+        await bot.wait_until_ready()
+        while True:
+            now = datetime.now()
+            current_time = now.strftime("%H:%M:%S")
+            if current_time == NURTURE_TIME:
+                await days_to_nurture_auto()
+            else:
+                await asyncio.sleep(1)
+    except:
+        await crash_handler()
+        raise
 
 #crash handler
 async def crash_handler():

@@ -44,3 +44,10 @@
 * added a very barebone !!roll command that throws a d6 dice
 * the bot now shows the version in it's nickname
 * !!lastchange has been removed and it's functionality was moved to !!changelog (i felt like both commands were redundant)
+## v0.3.6 - 11/02/2021
+* updated libraries, including discord.py to 1.6.0
+* a reported message will now be deleted instead of staying up if a mod reacts 🚫 after a regular user did
+* added a countdown to be posted in #nurture every day at 12:00pm GMT. closer to the release i'll add a function that will allow the bot to send a message for each timezone that'll get nurture.
+* added !!days_to_nurture that will tell you how many days are left before nurture releases (in the GMT timezone)
+
+
