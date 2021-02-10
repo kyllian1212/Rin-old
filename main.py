@@ -202,7 +202,6 @@ async def days_to_nurture(ctx):
         await crash_handler()
         raise
 
-@bot.command()
 async def days_to_nurture_auto():
     try:
         now = datetime.now()
