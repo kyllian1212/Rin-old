@@ -21,8 +21,8 @@ GUILD = os.getenv('DISCORD_GUILD')
 #if its a -dev version, it will load anyway but with a warning.
 #make sure to change the version when updated!
 VERSION = os.getenv('VERSION')
-GIT_VERSION = "v0.3.6"
-GIT_VERSION_DATE = "11/02/2021"
+GIT_VERSION = "v0.3.7"
+GIT_VERSION_DATE = "13/02/2021"
 
 #dev mode is when i run the bot locally
 devmode = False
@@ -320,13 +320,19 @@ async def status_task():
     try:
         await bot.wait_until_ready()
         while True:
-            random_variable = random.randint(0, (len(sl.song_library)-1))
+            variable = random.randint(0, (len(sl.song_library)-1))
+            #code for playing it the right order when nurture is released is commented
+            #variable = 0
             if str(VERSION).endswith("-dev"):
-                await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name="[DEV MODE] " + sl.song_library[random_variable][0] + " by " + sl.song_library[random_variable][1]))
+                await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name="[DEV MODE] " + sl.song_library[variable][0] + " by " + sl.song_library[variable][1]))
             else:
-                await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=sl.song_library[random_variable][0] + " by " + sl.song_library[random_variable][1]))
+                await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=sl.song_library[variable][0] + " by " + sl.song_library[variable][1]))
+            #if variable == 13:
+            #   variable = 0
+            #else:
+            #   variable += 1
             #DONT FORGET TO AWAIT A ASYNCIO.SLEEP() COMMAND!!!!!
-            await asyncio.sleep(sl.song_library[random_variable][2])
+            await asyncio.sleep(sl.song_library[variable][2])
     except:
         await crash_handler()
         raise
@@ -366,8 +372,9 @@ async def countdown():
             current_time = now.strftime("%H:%M:%S")
             if current_time == NURTURE_TIME:
                 await days_to_nurture_auto()
-            else:
                 await asyncio.sleep(1)
+            else:
+                await asyncio.sleep(0.5)
     except:
         await crash_handler()
         raise

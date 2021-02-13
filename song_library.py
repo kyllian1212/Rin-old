@@ -49,10 +49,21 @@ song_library=[
         ["EON BREAK", artist_library[1], convert(2,58)],         
         ["ANGEL VOICES", artist_library[1], convert(6, 32)],      
         #nurture
+        #track 1
         ["Get Your Wish", artist_library[0], convert(3, 38)],  
-        ["Something Comforting", artist_library[0], convert(4, 42)],  
-        ["Look At The Sky", artist_library[0], convert(2, 32)],  
-        ["Mirror", artist_library[0], convert(5, 7)],  
+        ["Something Comforting", artist_library[0], convert(4, 42)],    
+        #track 3
+        #track 4
+        #track 5
+        #track 6
+        #track 7
+        #track 8
+        #track 9
+        ["Mirror", artist_library[0], convert(5, 7)],
+        ["Look At The Sky", artist_library[0], convert(5, 10)],
+        #track 12
+        #track 13
+        #track 14
         ##porter robinson & madeon (2016)
         ["Shelter", artist_library[3], convert(3, 39)],  
 
@@ -87,4 +98,23 @@ song_library=[
         ["Hold Me Just Because", artist_library[2], convert(3,6)],            
         ["Heavy With Hoping", artist_library[2], convert(4,1)],  
         ["Borealis", artist_library[2], convert(4, 45)],    
+    ]
+
+#song library to play in order for a few days when nurture is released
+song_library_nurture=[
+        #track 1
+        ["Get Your Wish", artist_library[0], convert(3, 38)],  
+        ["Something Comforting", artist_library[0], convert(4, 42)],    
+        #track 3
+        #track 4
+        #track 5
+        #track 6
+        #track 7
+        #track 8
+        #track 9
+        ["Mirror", artist_library[0], convert(5, 7)],
+        ["Look At The Sky", artist_library[0], convert(5, 10)],
+        #track 12
+        #track 13
+        #track 14
     ]

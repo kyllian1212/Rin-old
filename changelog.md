@@ -49,5 +49,9 @@
 * a reported message will now be deleted instead of staying up if a mod reacts 🚫 after a regular user did
 * added a countdown to be posted in #nurture every day at 12:00am GMT. closer to the release i'll add a function that will allow the bot to send a message for each timezone that'll get nurture.
 * added !!days_to_nurture that will tell you how many days are left before nurture releases (in the GMT timezone)
+## v0.3.7 - 13/02/2021
+* fixed a glitch with the 'days to nurture' automation in #nurture
+* fixed the song length for 'look at the sky' (5m10s instead of 2m32s)
+* added placeholder code for when nurture releases
 
 
