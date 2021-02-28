@@ -53,5 +53,6 @@
 * fixed a glitch with the 'days to nurture' automation in #nurture
 * fixed the song length for 'look at the sky' (5m10s instead of 2m32s)
 * added placeholder code for when nurture releases
-
+## v0.3.8 - 28/02/2021
+* migrated from heroku to google cloud, which removed the 24hrs reboot limitation. i removed it from the bot as well as a result
 
