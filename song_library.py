@@ -53,7 +53,7 @@ song_library=[
         ["Get Your Wish", artist_library[0], convert(3, 38)],  
         ["Something Comforting", artist_library[0], convert(4, 42)],    
         #track 3
-        #track 4
+        ["Musician", artist_library[0], convert(3, 58)],
         #track 5
         #track 6
         #track 7
@@ -106,7 +106,7 @@ song_library_nurture=[
         ["Get Your Wish", artist_library[0], convert(3, 38)],  
         ["Something Comforting", artist_library[0], convert(4, 42)],    
         #track 3
-        #track 4
+        ["Musician", artist_library[0], convert(3, 58)],
         #track 5
         #track 6
         #track 7

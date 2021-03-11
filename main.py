@@ -21,8 +21,8 @@ GUILD = os.getenv('DISCORD_GUILD')
 #if its a -dev version, it will load anyway but with a warning.
 #make sure to change the version when updated!
 VERSION = os.getenv('VERSION')
-GIT_VERSION = "v0.3.8"
-GIT_VERSION_DATE = "28/02/2021"
+GIT_VERSION = "v0.3.9"
+GIT_VERSION_DATE = "12/03/2021"
 
 #dev mode is when i run the bot locally
 devmode = False
@@ -179,6 +179,18 @@ async def roll(ctx):
     try:
         random_variable = random.randint(1, 6)
         await ctx.channel.send("1d6 roll result: **" + str(random_variable) + "**")
+    except:
+        await crash_handler()
+        raise
+
+@bot.command()
+async def fiftyfifty(ctx):
+    try:
+        random_variable = random.randint(1, 2)
+        if random_variable == 1:
+            await ctx.channel.send("50/50 choice: **YES**")
+        if random_variable == 2:
+            await ctx.channel.send("50/50 choice: **NO**")
     except:
         await crash_handler()
         raise

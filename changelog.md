@@ -55,4 +55,7 @@
 * added placeholder code for when nurture releases
 ## v0.3.8 - 28/02/2021
 * migrated from heroku to google cloud, which removed the 24hrs reboot limitation. i removed it from the bot as well as a result
+## v0.3.9 - 12/03/2021
+* added musician by porter robinson to the song library
+* added !!fiftyfifty for geoguessr in #live-games
 
