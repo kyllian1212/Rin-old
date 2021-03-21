@@ -1,5 +1,5 @@
 **## v0.3.10 - 21/03/2021**
 * updated the bot's functionment (related to dev mode and versionning)
 * updated !!days_to_nurture and it's functionment  
-* updated !!fiftyfifty's functionment (will draw a number from 0 to 999 instead, 0 to 499 being yes and 500 to 999 being no)
+* updated !!fiftyfifty's functionment (will draw a number from 0 to 999 instead of 1 or 2, 0 to 499 being yes and 500 to 999 being no)
 * added placeholder stuff
