@@ -64,6 +64,7 @@ song_library=[
         #track 12
         #track 13
         #track 14
+        #track 15 (jpn exclusive track)
         ##porter robinson & madeon (2016)
         ["Shelter", artist_library[3], convert(3, 39)],  
 
@@ -117,4 +118,5 @@ song_library_nurture=[
         #track 12
         #track 13
         #track 14
+        #track 15 (jpn exclusive track)
     ]

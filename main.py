@@ -17,18 +17,16 @@ load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
 
-#program version in .env and for git. if they're not matching, the program will quit. 
-#if its a -dev version, it will load anyway but with a warning.
 #make sure to change the version when updated!
-VERSION = os.getenv('VERSION')
-GIT_VERSION = "v0.3.9"
-GIT_VERSION_DATE = "12/03/2021"
+version = "v0.3.10"
+version_date = "21/03/2021"
 
-#dev mode is when i run the bot locally
+#dev mode is when i run the bot (dont forget to disable it!!!)
 devmode = False
 
 #nurture time is for the countdown in #nurture
 NURTURE_TIME = os.getenv('NURTURE_TIME')
+NURTURE_TIME_2 = os.getenv('NURTURE_TIME_2')
 
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix="!!", intents=intents)
@@ -37,10 +35,8 @@ bot = commands.Bot(command_prefix="!!", intents=intents)
 async def on_ready():
     try:
         global devmode
+        global version
         now = datetime.now()
-
-        if str(VERSION).endswith("-dev"):
-            devmode = True
 
         for guild in bot.guilds:
             if guild.name == GUILD:
@@ -57,7 +53,8 @@ async def on_ready():
 
         print(f'Guild Member Count: {membercount}')
 
-        #version mismatch check
+        #version mismatch check (deprecated)
+        '''
         if VERSION != GIT_VERSION:
             if devmode:
                 versionmismatch_message_embed = discord.Embed(title="warning: versions aren't matching", description="*the bot is in dev mode, so it will boot anyways.*", color=0xffae42)
@@ -77,9 +74,14 @@ async def on_ready():
 
             if not devmode:
                 await os._exit(-1)
+        '''
+
+        #devmode check for versioning indication
+        if devmode:
+            version = version + "-dev"
 
         #bot version to be changed here for now - v major.minor.bugfix-dev
-        init_message_embed = discord.Embed(title="bot has successfully booted up.", description="*bot version: " + VERSION + "*", color=0x00aeff)
+        init_message_embed = discord.Embed(title="bot has successfully booted up.", description="*bot version: " + version + "*", color=0x00aeff)
         init_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")))
 
         bot.loop.create_task(status_task())
@@ -87,7 +89,7 @@ async def on_ready():
 
         #full boot sequence successfully completed
         await bot.get_channel(772219545082396692).send(embed=init_message_embed)
-        await bot.get_guild(186610204023062528).get_member(307932112294772737).edit(nick="Rin | " + VERSION)
+        await bot.get_guild(186610204023062528).get_member(307932112294772737).edit(nick="Rin | " + version)
         
     except:
         await crash_handler()
@@ -140,7 +142,7 @@ async def info(ctx):
     try:
         now = datetime.now()
         kyllian_user = bot.get_user(171000921927581696)
-        info_message_embed = discord.Embed(title="Rin-bot by " + str(kyllian_user.name) + "#" + str(kyllian_user.discriminator), description="*bot version " + VERSION + "*", url="https://github.com/kyllian1212/Rin", color=0x00aeff)
+        info_message_embed = discord.Embed(title="Rin-bot by " + str(kyllian_user.name) + "#" + str(kyllian_user.discriminator), description="*bot version " + version + "*", url="https://github.com/kyllian1212/Rin", color=0x00aeff)
         info_message_embed.set_thumbnail(url=kyllian_user.avatar_url)
         info_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")) + "  •  source code available by clicking the link above", icon_url=bot.user.avatar_url)
         await ctx.channel.send(embed=info_message_embed)
@@ -164,7 +166,7 @@ async def october18(ctx):
 async def changelog(ctx):
     try:
         now = datetime.now()
-        lastversion = GIT_VERSION + " - " + GIT_VERSION_DATE
+        lastversion = version + " - " + version_date
         changelog = open('lastchange_bot.txt', 'r').read()
         changelog_message_embed = discord.Embed(title="hello i've updated the bot :) | " + lastversion, description=changelog, url="https://github.com/kyllian1212/Rin/blob/master/changelog.md", color=0x00aeff)
         changelog_message_embed.set_thumbnail(url=bot.user.avatar_url)
@@ -186,10 +188,10 @@ async def roll(ctx):
 @bot.command()
 async def fiftyfifty(ctx):
     try:
-        random_variable = random.randint(1, 2)
-        if random_variable == 1:
+        random_variable = random.randint(0, 999)
+        if 0 <= random_variable <= 499:
             await ctx.channel.send("50/50 choice: **YES**")
-        if random_variable == 2:
+        if 500 <= random_variable <= 999:
             await ctx.channel.send("50/50 choice: **NO**")
     except:
         await crash_handler()
@@ -199,13 +201,26 @@ async def fiftyfifty(ctx):
 async def days_to_nurture(ctx):
     try:
         now = datetime.now()
-        nowdate = datetime.now().date().strftime("%Y-%m-%d")
-        d1 = datetime.strptime(nowdate, "%Y-%m-%d")
-        d2 = datetime.strptime("2021-04-23", "%Y-%m-%d")
-        diff = abs((d2 - d1).days)
-        changelog_message_embed = discord.Embed(title="There are " + str(diff) + " days left before Nurture releases (in the GMT timezone)", color=0x00aeff)
-        changelog_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")))
-        await ctx.channel.send(embed=changelog_message_embed)
+        d1 = datetime.now()
+        d2 = datetime(2021, 4, 23, 0, 0, 0)
+        diff = d2-d1
+        diffd = int(diff.total_seconds()/60/60/24)
+        diffh = int(diff.total_seconds()/60/60)
+        diffm = int(diff.total_seconds()/60)
+        diffs = int(diff.total_seconds())
+        diffs_float = float(diff.total_seconds())
+        if diffs_float <= 0:
+            nurture_message_embed = discord.Embed(title="NURTURE IS OUT! (in the UTC timezone) [placeholder]", color=0x00aeff)
+        elif diffm <= 1:
+            nurture_message_embed = discord.Embed(title="There are " + str(diffs) + " seconds left before Nurture releases (in the UTC timezone)", color=0x00aeff)
+        elif diffh <= 1:
+            nurture_message_embed = discord.Embed(title="There are " + str(diffm) + " minutes (" + str(diffs) + " seconds) left before Nurture releases (in the UTC timezone)", color=0x00aeff)
+        elif diffh < 100:
+            nurture_message_embed = discord.Embed(title="There are " + str(diffh) + " hours (" + str(diffm) + " minutes, " + str(diffs) + " seconds) left before Nurture releases (in the UTC timezone)", color=0x00aeff)
+        elif diffh >= 100:
+            nurture_message_embed = discord.Embed(title="There are " + str(diffd) + " days (" + str(diffh) + " hours, " + str(diffm) + " minutes, " + str(diffs) + " seconds) left before Nurture releases (in the UTC timezone)", color=0x00aeff)
+        nurture_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")))
+        await ctx.channel.send(embed=nurture_message_embed)
     except:
         await crash_handler()
         raise
@@ -214,18 +229,26 @@ async def days_to_nurture_auto():
     try:
         now = datetime.now()
         channel_nurture = bot.get_channel(671792848135389184)
-        nowdate = datetime.now().date().strftime("%Y-%m-%d")
-        d1 = datetime.strptime(nowdate, "%Y-%m-%d")
-        d2 = datetime.strptime("2021-04-23", "%Y-%m-%d")
-        diff = abs((d2 - d1).days)
-        if diff > 1:
-            changelog_message_embed = discord.Embed(title="There are " + str(diff) + " days left before Nurture releases (in the GMT timezone)", color=0x00aeff)
-        elif diff == 1:
-            changelog_message_embed = discord.Embed(title="There is " + str(diff) + " days left before Nurture releases (in the GMT timezone)", color=0x00aeff)
-        elif diff == 0:
-            changelog_message_embed = discord.Embed(title="NURTURE IS OUT NOW!! (in the GMT timezone)", color=0x00aeff)
-        changelog_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")))
-        await channel_nurture.send(embed=changelog_message_embed)
+        d1 = datetime.now()
+        d2 = datetime(2021, 4, 23, 0, 0, 0)
+        diff = d2-d1
+        diffd = int(diff.total_seconds()/60/60/24)
+        diffh = int(diff.total_seconds()/60/60)
+        diffm = int(diff.total_seconds()/60)
+        diffs = int(diff.total_seconds())
+        diffs_float = float(diff.total_seconds())
+        if diffs_float <= 0:
+            nurture_auto_message_embed = discord.Embed(title="NURTURE IS OUT! (in the UTC timezone) [placeholder]", color=0x00aeff)
+        elif diffm <= 1:
+            nurture_auto_message_embed = discord.Embed(title="There are " + str(diffs) + " seconds left before Nurture releases (in the UTC timezone)", color=0x00aeff)
+        elif diffh <= 1:
+            nurture_auto_message_embed = discord.Embed(title="There are " + str(diffm) + " minutes (" + str(diffs) + " seconds) left before Nurture releases (in the UTC timezone)", color=0x00aeff)
+        elif diffh < 100:
+            nurture_auto_message_embed = discord.Embed(title="There are " + str(diffh) + " hours (" + str(diffm) + " minutes, " + str(diffs) + " seconds) left before Nurture releases (in the UTC timezone)", color=0x00aeff)
+        elif diffh >= 100:
+            nurture_auto_message_embed = discord.Embed(title="There are " + str(diffd) + " days (" + str(diffh) + " hours, " + str(diffm) + " minutes, " + str(diffs) + " seconds) left before Nurture releases (in the UTC timezone)", color=0x00aeff)
+        nurture_auto_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")))
+        await channel_nurture.send(embed=nurture_auto_message_embed)
     except:
         await crash_handler()
         raise
@@ -331,7 +354,7 @@ async def status_task():
             variable = random.randint(0, (len(sl.song_library)-1))
             #code for playing it the right order when nurture is released is commented
             #variable = 0
-            if str(VERSION).endswith("-dev"):
+            if str(version).endswith("-dev"):
                 await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name="[DEV MODE] " + sl.song_library[variable][0] + " by " + sl.song_library[variable][1]))
             else:
                 await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=sl.song_library[variable][0] + " by " + sl.song_library[variable][1]))
@@ -352,7 +375,7 @@ async def countdown():
         while True:
             now = datetime.now()
             current_time = now.strftime("%H:%M:%S")
-            if current_time == NURTURE_TIME:
+            if current_time == NURTURE_TIME or current_time == NURTURE_TIME_2:
                 await days_to_nurture_auto()
                 await asyncio.sleep(1)
             else:
