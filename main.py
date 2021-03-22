@@ -18,11 +18,11 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
 
 #make sure to change the version when updated!
-version = "v0.3.10"
-version_date = "21/03/2021"
+version = "v0.3.11"
+version_date = "22/03/2021"
 
 #dev mode is when i run the bot (dont forget to disable it!!!)
-devmode = False
+devmode = True
 
 #nurture time is for the countdown in #nurture
 NURTURE_TIME = os.getenv('NURTURE_TIME')
@@ -197,14 +197,18 @@ async def fiftyfifty(ctx):
         await crash_handler()
         raise
 
+#CHANGE TO NZST WHEN YOU CAN INSTEAD OF UTC
 @bot.command()
 async def days_to_nurture(ctx):
     try:
         now = datetime.now()
+        nowdate = datetime.now().date().strftime("%Y-%m-%d")
         d1 = datetime.now()
         d2 = datetime(2021, 4, 23, 0, 0, 0)
+        daysd1 = datetime.strptime(nowdate, "%Y-%m-%d")
+        daysd2 = datetime.strptime("2021-04-23", "%Y-%m-%d")
         diff = d2-d1
-        diffd = int(diff.total_seconds()/60/60/24)
+        diffd = abs((daysd2 - daysd1).days)
         diffh = int(diff.total_seconds()/60/60)
         diffm = int(diff.total_seconds()/60)
         diffs = int(diff.total_seconds())
@@ -225,14 +229,24 @@ async def days_to_nurture(ctx):
         await crash_handler()
         raise
 
+#CHANGE TO NZST WHEN YOU CAN INSTEAD OF UTC
+#scheduling:
+#pre-month of release: every 24hrs
+#month of release: every 12hrs
+#week of release: every 6hrs
+#12hrs before release: every hour
+#followed by rin indicating the release in every timezone
 async def days_to_nurture_auto():
     try:
         now = datetime.now()
+        nowdate = datetime.now().date().strftime("%Y-%m-%d")
         channel_nurture = bot.get_channel(671792848135389184)
         d1 = datetime.now()
         d2 = datetime(2021, 4, 23, 0, 0, 0)
+        daysd1 = datetime.strptime(nowdate, "%Y-%m-%d")
+        daysd2 = datetime.strptime("2021-04-23", "%Y-%m-%d")
         diff = d2-d1
-        diffd = int(diff.total_seconds()/60/60/24)
+        diffd = abs((daysd2 - daysd1).days)
         diffh = int(diff.total_seconds()/60/60)
         diffm = int(diff.total_seconds()/60)
         diffs = int(diff.total_seconds())

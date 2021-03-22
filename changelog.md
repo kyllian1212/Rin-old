@@ -63,4 +63,6 @@
 * updated !!days_to_nurture and it's functionment  
 * updated !!fiftyfifty's functionment (will draw a number from 0 to 999 instead of 1 or 2, 0 to 499 being yes and 500 to 999 being no) 
 * added placeholder stuff
+## v0.3.11 - 22/03/2021
+* fixed !!days_to_nurture's issue with counting days
 
