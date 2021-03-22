@@ -18,7 +18,7 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
 
 #make sure to change the version when updated!
-version = "v0.3.11"
+version = "v0.3.12"
 version_date = "22/03/2021"
 
 #dev mode is when i run the bot (dont forget to disable it!!!)
@@ -197,9 +197,21 @@ async def fiftyfifty(ctx):
         await crash_handler()
         raise
 
-#CHANGE TO NZST WHEN YOU CAN INSTEAD OF UTC
+#remove it for the next version
 @bot.command()
 async def days_to_nurture(ctx):
+    try:
+        now = datetime.now()
+        nurture_message_embed = discord.Embed(title="Command name has changed! Please use !!nurture now", color=0x00aeff)
+        nurture_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")))
+        await ctx.channel.send(embed=nurture_message_embed)
+    except:
+        await crash_handler()
+        raise
+
+#CHANGE TO NZST WHEN YOU CAN INSTEAD OF UTC
+@bot.command()
+async def nurture(ctx):
     try:
         now = datetime.now()
         nowdate = datetime.now().date().strftime("%Y-%m-%d")
@@ -209,10 +221,10 @@ async def days_to_nurture(ctx):
         daysd2 = datetime.strptime("2021-04-23", "%Y-%m-%d")
         diff = d2-d1
         diffd = abs((daysd2 - daysd1).days)
-        diffh = int(diff.total_seconds()/60/60)
-        diffm = int(diff.total_seconds()/60)
-        diffs = int(diff.total_seconds())
-        diffs_float = float(diff.total_seconds())
+        diffh = int((diff.total_seconds()+1)/60/60)
+        diffm = int((diff.total_seconds()+1)/60)
+        diffs = int((diff.total_seconds()+1))
+        diffs_float = float((diff.total_seconds()+1))
         if diffs_float <= 0:
             nurture_message_embed = discord.Embed(title="NURTURE IS OUT! (in the UTC timezone) [placeholder]", color=0x00aeff)
         elif diffm <= 1:
@@ -247,10 +259,10 @@ async def days_to_nurture_auto():
         daysd2 = datetime.strptime("2021-04-23", "%Y-%m-%d")
         diff = d2-d1
         diffd = abs((daysd2 - daysd1).days)
-        diffh = int(diff.total_seconds()/60/60)
-        diffm = int(diff.total_seconds()/60)
-        diffs = int(diff.total_seconds())
-        diffs_float = float(diff.total_seconds())
+        diffh = int((diff.total_seconds()+1)/60/60)
+        diffm = int((diff.total_seconds()+1)/60)
+        diffs = int((diff.total_seconds()+1))
+        diffs_float = float((diff.total_seconds()+1))
         if diffs_float <= 0:
             nurture_auto_message_embed = discord.Embed(title="NURTURE IS OUT! (in the UTC timezone) [placeholder]", color=0x00aeff)
         elif diffm <= 1:

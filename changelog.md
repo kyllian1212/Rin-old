@@ -65,4 +65,6 @@
 * added placeholder stuff
 ## v0.3.11 - 22/03/2021
 * fixed !!days_to_nurture's issue with counting days
-
+## v0.3.12 - 22/03/2021
+* renamed the !!days_to_nurture command to !!nurture
+* fixed !!nurture's issue (again) with counting seconds
