@@ -22,7 +22,7 @@ version = "v0.3.11"
 version_date = "22/03/2021"
 
 #dev mode is when i run the bot (dont forget to disable it!!!)
-devmode = True
+devmode = False
 
 #nurture time is for the countdown in #nurture
 NURTURE_TIME = os.getenv('NURTURE_TIME')
