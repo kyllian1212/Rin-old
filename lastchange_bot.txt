@@ -1,3 +1,4 @@
-**## v0.3.12 - 22/03/2021**
-* renamed the !!days_to_nurture command to !!nurture
-* fixed !!nurture's issue (again) with counting seconds
+**## v0.3.13 - 07/04/2021**
+* added !!saytts (for mods)
+* added special countdown stuff for nurture's release
+* switched the timezone of the countdown from utc to nzst

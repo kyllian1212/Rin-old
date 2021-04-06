@@ -18,8 +18,8 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
 
 #make sure to change the version when updated!
-version = "v0.3.12"
-version_date = "22/03/2021"
+version = "v0.3.13"
+version_date = "07/04/2021"
 
 #dev mode is when i run the bot (dont forget to disable it!!!)
 devmode = False
@@ -138,6 +138,23 @@ async def say(ctx, *, arg):
         raise
 
 @bot.command()
+async def saytts(ctx, *, arg):
+    try:
+        guild = bot.get_guild(186610204023062528)
+        mod_role = guild.get_role(219977258453041152)
+        message_author = ctx.author
+        is_mod = False
+        for role in message_author.roles:
+            if role == mod_role:
+                is_mod = True
+        if is_mod:
+            await ctx.message.delete()
+            await ctx.channel.send(arg, tts=True)
+    except:
+        await crash_handler()
+        raise
+
+@bot.command()
 async def info(ctx):
     try:
         now = datetime.now()
@@ -197,44 +214,28 @@ async def fiftyfifty(ctx):
         await crash_handler()
         raise
 
-#remove it for the next version
-@bot.command()
-async def days_to_nurture(ctx):
-    try:
-        now = datetime.now()
-        nurture_message_embed = discord.Embed(title="Command name has changed! Please use !!nurture now", color=0x00aeff)
-        nurture_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")))
-        await ctx.channel.send(embed=nurture_message_embed)
-    except:
-        await crash_handler()
-        raise
-
-#CHANGE TO NZST WHEN YOU CAN INSTEAD OF UTC
 @bot.command()
 async def nurture(ctx):
     try:
         now = datetime.now()
-        nowdate = datetime.now().date().strftime("%Y-%m-%d")
         d1 = datetime.now()
-        d2 = datetime(2021, 4, 23, 0, 0, 0)
-        daysd1 = datetime.strptime(nowdate, "%Y-%m-%d")
-        daysd2 = datetime.strptime("2021-04-23", "%Y-%m-%d")
+        d2 = datetime(2021, 4, 22, 12, 0, 0)
         diff = d2-d1
-        diffd = abs((daysd2 - daysd1).days)
+        diffd = int((diff.total_seconds()+1)/60/60/24)+1
         diffh = int((diff.total_seconds()+1)/60/60)
         diffm = int((diff.total_seconds()+1)/60)
         diffs = int((diff.total_seconds()+1))
         diffs_float = float((diff.total_seconds()+1))
         if diffs_float <= 0:
-            nurture_message_embed = discord.Embed(title="NURTURE IS OUT! (in the UTC timezone) [placeholder]", color=0x00aeff)
+            await nurture_release_check()
         elif diffm <= 1:
-            nurture_message_embed = discord.Embed(title="There are " + str(diffs) + " seconds left before Nurture releases (in the UTC timezone)", color=0x00aeff)
+            nurture_message_embed = discord.Embed(title="There are " + str(diffs) + " seconds left before Nurture releases (in the NZST timezone)", color=0x00aeff)
         elif diffh <= 1:
-            nurture_message_embed = discord.Embed(title="There are " + str(diffm) + " minutes (" + str(diffs) + " seconds) left before Nurture releases (in the UTC timezone)", color=0x00aeff)
+            nurture_message_embed = discord.Embed(title="There are " + str(diffm) + " minutes (" + str(diffs) + " seconds) left before Nurture releases (in the NZST timezone)", color=0x00aeff)
         elif diffh < 100:
-            nurture_message_embed = discord.Embed(title="There are " + str(diffh) + " hours (" + str(diffm) + " minutes, " + str(diffs) + " seconds) left before Nurture releases (in the UTC timezone)", color=0x00aeff)
+            nurture_message_embed = discord.Embed(title="There are " + str(diffh) + " hours (" + str(diffm) + " minutes, " + str(diffs) + " seconds) left before Nurture releases (in the NZST timezone)", color=0x00aeff)
         elif diffh >= 100:
-            nurture_message_embed = discord.Embed(title="There are " + str(diffd) + " days (" + str(diffh) + " hours, " + str(diffm) + " minutes, " + str(diffs) + " seconds) left before Nurture releases (in the UTC timezone)", color=0x00aeff)
+            nurture_message_embed = discord.Embed(title="There are " + str(diffd) + " days (" + str(diffh) + " hours, " + str(diffm) + " minutes, " + str(diffs) + " seconds) left before Nurture releases (in the NZST timezone)", color=0x00aeff)
         nurture_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")))
         await ctx.channel.send(embed=nurture_message_embed)
     except:
@@ -244,40 +245,85 @@ async def nurture(ctx):
 #CHANGE TO NZST WHEN YOU CAN INSTEAD OF UTC
 #scheduling:
 #pre-month of release: every 24hrs
-#month of release: every 12hrs
-#week of release: every 6hrs
+#month of release (30 days before): every 12hrs
+#week of release (7 days before): every 6hrs
+#3 days before release: every 3hrs
 #12hrs before release: every hour
 #followed by rin indicating the release in every timezone
 async def days_to_nurture_auto():
     try:
         now = datetime.now()
-        nowdate = datetime.now().date().strftime("%Y-%m-%d")
         channel_nurture = bot.get_channel(671792848135389184)
         d1 = datetime.now()
-        d2 = datetime(2021, 4, 23, 0, 0, 0)
-        daysd1 = datetime.strptime(nowdate, "%Y-%m-%d")
-        daysd2 = datetime.strptime("2021-04-23", "%Y-%m-%d")
+        d2 = datetime(2021, 4, 22, 12, 0, 0)
         diff = d2-d1
-        diffd = abs((daysd2 - daysd1).days)
+        diffd = int((diff.total_seconds()+1)/60/60/24)+1
         diffh = int((diff.total_seconds()+1)/60/60)
         diffm = int((diff.total_seconds()+1)/60)
         diffs = int((diff.total_seconds()+1))
         diffs_float = float((diff.total_seconds()+1))
         if diffs_float <= 0:
-            nurture_auto_message_embed = discord.Embed(title="NURTURE IS OUT! (in the UTC timezone) [placeholder]", color=0x00aeff)
+            await nurture_release_check()
         elif diffm <= 1:
-            nurture_auto_message_embed = discord.Embed(title="There are " + str(diffs) + " seconds left before Nurture releases (in the UTC timezone)", color=0x00aeff)
+            nurture_auto_message_embed = discord.Embed(title="There are " + str(diffs) + " seconds left before Nurture releases (in the NZST timezone)", color=0x00aeff)
         elif diffh <= 1:
-            nurture_auto_message_embed = discord.Embed(title="There are " + str(diffm) + " minutes (" + str(diffs) + " seconds) left before Nurture releases (in the UTC timezone)", color=0x00aeff)
+            nurture_auto_message_embed = discord.Embed(title="There are " + str(diffm) + " minutes (" + str(diffs) + " seconds) left before Nurture releases (in the NZST timezone)", color=0x00aeff)
         elif diffh < 100:
-            nurture_auto_message_embed = discord.Embed(title="There are " + str(diffh) + " hours (" + str(diffm) + " minutes, " + str(diffs) + " seconds) left before Nurture releases (in the UTC timezone)", color=0x00aeff)
+            nurture_auto_message_embed = discord.Embed(title="There are " + str(diffh) + " hours (" + str(diffm) + " minutes, " + str(diffs) + " seconds) left before Nurture releases (in the NZST timezone)", color=0x00aeff)
         elif diffh >= 100:
-            nurture_auto_message_embed = discord.Embed(title="There are " + str(diffd) + " days (" + str(diffh) + " hours, " + str(diffm) + " minutes, " + str(diffs) + " seconds) left before Nurture releases (in the UTC timezone)", color=0x00aeff)
+            nurture_auto_message_embed = discord.Embed(title="There are " + str(diffd) + " days (" + str(diffh) + " hours, " + str(diffm) + " minutes, " + str(diffs) + " seconds) left before Nurture releases (in the NZST timezone)", color=0x00aeff)
         nurture_auto_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")))
         await channel_nurture.send(embed=nurture_auto_message_embed)
     except:
         await crash_handler()
         raise
+
+async def nurture_release_check():
+    try:
+        embargo = True
+        nowwithms = str(datetime.now())
+        nowstrp = datetime.strptime(nowwithms, "%Y-%m-%d %H:%M:%S.%f")
+        nowfooter = nowstrp.strftime("%Y-%m-%d %H:%M:%S")
+        channel_nurture = bot.get_channel(671792848135389184)
+        nurture_release_embed = discord.Embed(title="Nurture is out!!", color=0x00aeff)
+        nurture_release_embed.set_thumbnail(url="https://upload.wikimedia.org/wikipedia/en/0/07/Porter_Robinson_-_Nurture.png")
+        if str(nowfooter) == str(datetime(2021, 4, 22, 12, 0, 0)):
+            nurture_release_embed.add_field(name="The album is now out in, for example, those countries:", value="- New Zealand \n(im sorry in advance, i wont be able to quote every single country the album is out at but i will quote the most important ones/those who i think represent porter's demographic the most!)", inline=False)
+        elif str(nowfooter) == str(datetime(2021, 4, 22, 14, 0, 0)):
+            nurture_release_embed.add_field(name="The album is now out in, for example, those countries:", value="- Australia \n(and more)", inline=False)
+        elif str(nowfooter) == str(datetime(2021, 4, 22, 15, 0, 0)):
+            nurture_release_embed.add_field(name="The album is now out in, for example, those countries:", value="- South Korea \n- Japan (!) \n- Indonesia \n(and more)", inline=False)
+        elif str(nowfooter) == str(datetime(2021, 4, 22, 16, 0, 0)):
+            nurture_release_embed.add_field(name="The album is now out in, for example, those countries:", value="- China \n- Taiwan \n- Philippines \n- Singapore \n(and more)", inline=False)
+        elif str(nowfooter) == str(datetime(2021, 4, 22, 19, 0, 0)):
+            nurture_release_embed.add_field(name="The album is now out in, for example, those countries:", value="- India \n(and more)", inline=False)
+        elif str(nowfooter) == str(datetime(2021, 4, 22, 21, 0, 0)):
+            nurture_release_embed.add_field(name="The album is now out in, for example, those countries:", value="Many countries in the UTC+3 timezone (Finland, Ukraine, Greece, many more...)", inline=False)
+        elif str(nowfooter) == str(datetime(2021, 4, 22, 22, 0, 0)):
+            nurture_release_embed.add_field(name="The album is now out in, for example, those countries:", value="Many countries in the UTC+2 timezone (France, Germany, Belgium, Spain, Italy, many many more...)", inline=False)
+        elif str(nowfooter) == str(datetime(2021, 4, 22, 23, 0, 0)):
+            nurture_release_embed.add_field(name="The album is now out in, for example, those countries:", value="- United Kingdom \n-Ireland \n- Portugal \n(and more)", inline=False)
+        elif str(nowfooter) == str(datetime(2021, 4, 23, 0, 0, 0)):
+            nurture_release_embed.add_field(name="The album is now out in, for example, those countries:", value="- Iceland", inline=False)
+        elif str(nowfooter) == str(datetime(2021, 4, 23, 3, 0, 0)):
+            nurture_release_embed.add_field(name="The album is now out in, for example, those countries:", value="- Brazil \n- Argentina \n- Chile", inline=False)
+        elif str(nowfooter) == str(datetime(2021, 4, 23, 4, 0, 0)):
+            nurture_release_embed.add_field(name="The album is now out in, for example, those countries:", value="- Canada \n- United States of America", inline=False)
+        elif str(nowfooter) == str(datetime(2021, 4, 23, 5, 0, 0)):
+            nurture_release_embed.add_field(name="The album is now out in, for example, those countries:", value="- Mexico \n(the album is pretty much out everywhere now)", inline=False)
+        elif str(nowfooter) == str(datetime(2021, 4, 23, 12, 0, 0)):
+            embargo = False
+        
+        if embargo == True:
+            nurture_release_embed.add_field(name="Reminder", value="Please talk about the album itself *only* in <#821895682709389313> until the embargo ends! Talks about the album anywhere else in the server, even with spoiler tags, aren't allowed (only exception being the singles and remixes that were already released).", inline=False)
+        else:
+            nurture_release_embed.add_field(name="The album is now out everywhere.", value="The embargo has been lifted; you can talk about the album everywhere in the server now! ~~my countdown job is done. goodbye~~", inline=False)
+        nurture_release_embed.set_footer(text=str(nowfooter))
+        await channel_nurture.send(embed=nurture_release_embed)
+    except:
+        await crash_handler()
+        raise
+
 
 @bot.event
 async def on_reaction_add(reaction, user):
@@ -384,7 +430,7 @@ async def status_task():
                 await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name="[DEV MODE] " + sl.song_library[variable][0] + " by " + sl.song_library[variable][1]))
             else:
                 await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=sl.song_library[variable][0] + " by " + sl.song_library[variable][1]))
-            #if variable == 13:
+            #if variable == 14:
             #   variable = 0
             #else:
             #   variable += 1
@@ -392,6 +438,7 @@ async def status_task():
             await asyncio.sleep(sl.song_library[variable][2])
     except:
         await crash_handler()
+        await status_task()
         raise
 
 #countdown post
@@ -401,9 +448,44 @@ async def countdown():
         while True:
             now = datetime.now()
             current_time = now.strftime("%H:%M:%S")
-            if current_time == NURTURE_TIME or current_time == NURTURE_TIME_2:
-                await days_to_nurture_auto()
-                await asyncio.sleep(1)
+            dc1 = datetime.now()
+            dc2 = datetime(2021, 4, 22, 12, 0, 0)
+            diffc = dc2-dc1
+            diffch = int((diffc.total_seconds()+1)/60/60)
+            NURTURE_TIME_DICT=[
+                "00:00:00", "01:00:00", "02:00:00",
+                "03:00:00", "04:00:00", "05:00:00",
+                "06:00:00", "07:00:00", "08:00:00",
+                "09:00:00", "10:00:00", "11:00:00",
+                "12:00:00", "13:00:00", "14:00:00",
+                "15:00:00", "16:00:00", "17:00:00",
+                "18:00:00", "19:00:00", "20:00:00",
+                "21:00:00", "22:00:00", "23:00:00"
+            ]
+            if diffch < 12:
+                if current_time in NURTURE_TIME_DICT:
+                    await days_to_nurture_auto()
+                    await asyncio.sleep(1)
+                else:
+                    await asyncio.sleep(0.5)
+            elif diffch < 72:
+                if current_time == NURTURE_TIME_DICT[0] or current_time == NURTURE_TIME_DICT[3] or current_time == NURTURE_TIME_DICT[6] or current_time == NURTURE_TIME_DICT[9] or current_time == NURTURE_TIME_DICT[12] or current_time == NURTURE_TIME_DICT[15] or current_time == NURTURE_TIME_DICT[18] or current_time == NURTURE_TIME_DICT[21]:
+                    await days_to_nurture_auto()
+                    await asyncio.sleep(1)
+                else:
+                    await asyncio.sleep(0.5)
+            elif diffch < 168:
+                if current_time == NURTURE_TIME_DICT[0] or current_time == NURTURE_TIME_DICT[6] or current_time == NURTURE_TIME_DICT[12] or current_time == NURTURE_TIME_DICT[18]:
+                    await days_to_nurture_auto()
+                    await asyncio.sleep(1)
+                else:
+                    await asyncio.sleep(0.5)
+            elif diffch >= 168:
+                if current_time == NURTURE_TIME_DICT[0] or current_time == NURTURE_TIME_DICT[12]:
+                    await days_to_nurture_auto()
+                    await asyncio.sleep(1)
+                else:
+                    await asyncio.sleep(0.5)
             else:
                 await asyncio.sleep(0.5)
     except:
