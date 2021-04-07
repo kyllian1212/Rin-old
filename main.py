@@ -18,7 +18,7 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
 
 #make sure to change the version when updated!
-version = "v0.3.13"
+version = "v0.3.14"
 version_date = "07/04/2021"
 
 #dev mode is when i run the bot (dont forget to disable it!!!)
@@ -221,12 +221,12 @@ async def nurture(ctx):
         d1 = datetime.now()
         d2 = datetime(2021, 4, 22, 12, 0, 0)
         diff = d2-d1
-        diffd = int((diff.total_seconds()+1)/60/60/24)+1
+        diffd = int((diff.total_seconds())/60/60/24)+1
         diffh = int((diff.total_seconds()+1)/60/60)
         diffm = int((diff.total_seconds()+1)/60)
         diffs = int((diff.total_seconds()+1))
         diffs_float = float((diff.total_seconds()+1))
-        if diffs_float <= 0:
+        if diffs_float <= 1:
             await nurture_release_check()
         elif diffm <= 1:
             nurture_message_embed = discord.Embed(title="There are " + str(diffs) + " seconds left before Nurture releases (in the NZST timezone)", color=0x00aeff)
@@ -257,12 +257,12 @@ async def days_to_nurture_auto():
         d1 = datetime.now()
         d2 = datetime(2021, 4, 22, 12, 0, 0)
         diff = d2-d1
-        diffd = int((diff.total_seconds()+1)/60/60/24)+1
+        diffd = int((diff.total_seconds())/60/60/24)+1
         diffh = int((diff.total_seconds()+1)/60/60)
         diffm = int((diff.total_seconds()+1)/60)
         diffs = int((diff.total_seconds()+1))
         diffs_float = float((diff.total_seconds()+1))
-        if diffs_float <= 0:
+        if diffs_float <= 1:
             await nurture_release_check()
         elif diffm <= 1:
             nurture_auto_message_embed = discord.Embed(title="There are " + str(diffs) + " seconds left before Nurture releases (in the NZST timezone)", color=0x00aeff)

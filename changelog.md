@@ -72,3 +72,5 @@
 * added !!saytts (for mods)
 * added special countdown stuff for nurture's release
 * switched the timezone of the countdown from utc to nzst
+## v0.3.14 - 07/04/2021
+* fixed !!nurture's issue (again x2) with counting seconds/days
