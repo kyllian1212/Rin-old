@@ -74,3 +74,5 @@
 * switched the timezone of the countdown from utc to nzst
 ## v0.3.14 - 07/04/2021
 * fixed !!nurture's issue (again x2) with counting seconds/days
+## v0.3.15 - 14/04/2021
+* updated the report functionnality so that temp moderators can report messages as well
