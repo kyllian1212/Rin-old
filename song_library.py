@@ -50,8 +50,8 @@ song_library=[
         ["ANGEL VOICES", artist_library[1], convert(6, 32)],      
         #nurture
         ["Lifelike", artist_library[0], convert(1, 35)],
-        ["Get Your Wish", artist_library[0], convert(3, 38)],  
         ["Look At The Sky", artist_library[0], convert(5, 10)],  
+        ["Get Your Wish", artist_library[0], convert(3, 38)],  
         ["Wind Tempos", artist_library[0], convert(6, 4)],
         ["Musician", artist_library[0], convert(3, 58)],
         ["do-re-mi-fa-so-la-ti-do", artist_library[0], convert(3, 35)],
@@ -103,8 +103,8 @@ song_library=[
 #song library to play in order for a few days when nurture is released
 song_library_nurture=[
         ["Lifelike", artist_library[0], convert(1, 35)],
-        ["Get Your Wish", artist_library[0], convert(3, 38)],  
         ["Look At The Sky", artist_library[0], convert(5, 10)],  
+        ["Get Your Wish", artist_library[0], convert(3, 38)],  
         ["Wind Tempos", artist_library[0], convert(6, 4)],
         ["Musician", artist_library[0], convert(3, 58)],
         ["do-re-mi-fa-so-la-ti-do", artist_library[0], convert(3, 35)],
