@@ -434,7 +434,7 @@ async def status_task():
             if variable == 14:
                variable = 0
             else:
-               variable += 1
+               variable = variable + 1
             #DONT FORGET TO AWAIT A ASYNCIO.SLEEP() COMMAND!!!!!
             await asyncio.sleep(sl.song_library_nurture[variable][2])
     except:
