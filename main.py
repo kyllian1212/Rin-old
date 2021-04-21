@@ -419,13 +419,14 @@ async def on_reaction_add(reaction, user):
 async def mod_only_command(message):
     await message.channel.send("you cannot do this action as you are not a mod!")
 
+variable = 0
 #rin presence
 async def status_task():
     try:
         await bot.wait_until_ready()
         while True:
             #variable = random.randint(0, (len(sl.song_library)-1))
-            variable = 0
+            global variable
             if str(version).endswith("-dev"):
                 await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name="[DEV MODE] " + sl.song_library_nurture[variable][0] + " by " + sl.song_library_nurture[variable][1]))
             else:
