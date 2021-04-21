@@ -18,8 +18,8 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
 
 #make sure to change the version when updated!
-version = "v0.3.15"
-version_date = "14/04/2021"
+version = "v0.3.16"
+version_date = "21/04/2021"
 
 #dev mode is when i run the bot (dont forget to disable it!!!)
 devmode = False
