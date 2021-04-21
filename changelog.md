@@ -76,3 +76,6 @@
 * fixed !!nurture's issue (again x2) with counting seconds/days
 ## v0.3.15 - 14/04/2021
 * updated the report functionnality so that temp moderators can report messages as well
+## v0.3.16 - 21/04/2021
+* updated countdown stuff
+* the bot will now play nurture in order in the rich presence

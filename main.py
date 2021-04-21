@@ -230,7 +230,7 @@ async def nurture(ctx):
             await nurture_release_check()
         elif diffm <= 1:
             nurture_message_embed = discord.Embed(title="There are " + str(diffs) + " seconds left before Nurture releases (in the NZST timezone)", color=0x00aeff)
-        elif diffh <= 1:
+        elif diffh <= 2:
             nurture_message_embed = discord.Embed(title="There are " + str(diffm) + " minutes (" + str(diffs) + " seconds) left before Nurture releases (in the NZST timezone)", color=0x00aeff)
         elif diffh < 100:
             nurture_message_embed = discord.Embed(title="There are " + str(diffh) + " hours (" + str(diffm) + " minutes, " + str(diffs) + " seconds) left before Nurture releases (in the NZST timezone)", color=0x00aeff)
@@ -266,7 +266,7 @@ async def days_to_nurture_auto():
             await nurture_release_check()
         elif diffm <= 1:
             nurture_auto_message_embed = discord.Embed(title="There are " + str(diffs) + " seconds left before Nurture releases (in the NZST timezone)", color=0x00aeff)
-        elif diffh <= 1:
+        elif diffh <= 2:
             nurture_auto_message_embed = discord.Embed(title="There are " + str(diffm) + " minutes (" + str(diffs) + " seconds) left before Nurture releases (in the NZST timezone)", color=0x00aeff)
         elif diffh < 100:
             nurture_auto_message_embed = discord.Embed(title="There are " + str(diffh) + " hours (" + str(diffm) + " minutes, " + str(diffs) + " seconds) left before Nurture releases (in the NZST timezone)", color=0x00aeff)
@@ -424,19 +424,18 @@ async def status_task():
     try:
         await bot.wait_until_ready()
         while True:
-            variable = random.randint(0, (len(sl.song_library)-1))
-            #code for playing it the right order when nurture is released is commented
-            #variable = 0
+            #variable = random.randint(0, (len(sl.song_library)-1))
+            variable = 0
             if str(version).endswith("-dev"):
-                await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name="[DEV MODE] " + sl.song_library[variable][0] + " by " + sl.song_library[variable][1]))
+                await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name="[DEV MODE] " + sl.song_library_nurture[variable][0] + " by " + sl.song_library_nurture[variable][1]))
             else:
-                await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=sl.song_library[variable][0] + " by " + sl.song_library[variable][1]))
-            #if variable == 14:
-            #   variable = 0
-            #else:
-            #   variable += 1
+                await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=sl.song_library_nurture[variable][0] + " by " + sl.song_library_nurture[variable][1]))
+            if variable == 14:
+               variable = 0
+            else:
+               variable += 1
             #DONT FORGET TO AWAIT A ASYNCIO.SLEEP() COMMAND!!!!!
-            await asyncio.sleep(sl.song_library[variable][2])
+            await asyncio.sleep(sl.song_library_nurture[variable][2])
     except:
         await crash_handler()
         await status_task()

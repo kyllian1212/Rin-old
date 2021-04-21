@@ -49,22 +49,21 @@ song_library=[
         ["EON BREAK", artist_library[1], convert(2,58)],         
         ["ANGEL VOICES", artist_library[1], convert(6, 32)],      
         #nurture
-        #track 1
+        ["Lifelike", artist_library[0], convert(1, 35)],
         ["Get Your Wish", artist_library[0], convert(3, 38)],  
-        ["Something Comforting", artist_library[0], convert(4, 42)],    
-        #track 3
+        ["Look At The Sky", artist_library[0], convert(5, 10)],  
+        ["Wind Tempos", artist_library[0], convert(6, 4)],
         ["Musician", artist_library[0], convert(3, 58)],
-        #track 5
-        #track 6
-        #track 7
-        #track 8
-        #track 9
+        ["do-re-mi-fa-so-la-ti-do", artist_library[0], convert(3, 35)],
+        ["Mother", artist_library[0], convert(3, 36)],
+        ["dullscythe", artist_library[0], convert(4, 0)],
+        ["Sweet Time", artist_library[0], convert(4, 12)],
         ["Mirror", artist_library[0], convert(5, 7)],
-        ["Look At The Sky", artist_library[0], convert(5, 10)],
-        #track 12
-        #track 13
-        #track 14
-        #track 15 (jpn exclusive track)
+        ["Something Comforting", artist_library[0], convert(4, 42)],  
+        ["Blossom", artist_library[0], convert(3, 46)],
+        ["Unfold (with Totally Enormous Extinct Dinosaurs)", artist_library[0], convert(4, 46)],
+        ["Trying to Feel Alive", artist_library[0], convert(4, 44)],
+        ["fullmoon lullaby (with Wednesday Campanella)", artist_library[0], convert(4, 3)],
         ##porter robinson & madeon (2016)
         ["Shelter", artist_library[3], convert(3, 39)],  
 
@@ -103,20 +102,19 @@ song_library=[
 
 #song library to play in order for a few days when nurture is released
 song_library_nurture=[
-        #track 1
+        ["Lifelike", artist_library[0], convert(1, 35)],
         ["Get Your Wish", artist_library[0], convert(3, 38)],  
-        ["Something Comforting", artist_library[0], convert(4, 42)],    
-        #track 3
+        ["Look At The Sky", artist_library[0], convert(5, 10)],  
+        ["Wind Tempos", artist_library[0], convert(6, 4)],
         ["Musician", artist_library[0], convert(3, 58)],
-        #track 5
-        #track 6
-        #track 7
-        #track 8
-        #track 9
+        ["do-re-mi-fa-so-la-ti-do", artist_library[0], convert(3, 35)],
+        ["Mother", artist_library[0], convert(3, 36)],
+        ["dullscythe", artist_library[0], convert(4, 0)],
+        ["Sweet Time", artist_library[0], convert(4, 12)],
         ["Mirror", artist_library[0], convert(5, 7)],
-        ["Look At The Sky", artist_library[0], convert(5, 10)],
-        #track 12
-        #track 13
-        #track 14
-        #track 15 (jpn exclusive track)
+        ["Something Comforting", artist_library[0], convert(4, 42)],  
+        ["Blossom", artist_library[0], convert(3, 46)],
+        ["Unfold (with Totally Enormous Extinct Dinosaurs)", artist_library[0], convert(4, 46)],
+        ["Trying to Feel Alive", artist_library[0], convert(4, 44)],
+        ["fullmoon lullaby (with Wednesday Campanella)", artist_library[0], convert(4, 3)]
     ]
