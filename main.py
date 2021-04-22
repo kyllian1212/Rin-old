@@ -262,8 +262,9 @@ async def days_to_nurture_auto():
         diffm = int((diff.total_seconds()+1)/60)
         diffs = int((diff.total_seconds()+1))
         diffs_float = float((diff.total_seconds()+1))
+        await nurture_release_check()
         if diffs_float <= 1:
-            await nurture_release_check()
+            print("a")
         elif diffm <= 1:
             nurture_auto_message_embed = discord.Embed(title="There are " + str(diffs) + " seconds left before Nurture releases (in the NZST timezone)", color=0x00aeff)
         elif diffh <= 2:
@@ -450,7 +451,7 @@ async def countdown():
             now = datetime.now()
             current_time = now.strftime("%H:%M:%S")
             dc1 = datetime.now()
-            dc2 = datetime(2021, 4, 22, 12, 0, 0)
+            dc2 = datetime(2021, 4, 23, 12, 0, 0)
             diffc = dc2-dc1
             diffch = int((diffc.total_seconds()+1)/60/60)
             NURTURE_TIME_DICT=[
@@ -463,7 +464,7 @@ async def countdown():
                 "18:00:00", "19:00:00", "20:00:00",
                 "21:00:00", "22:00:00", "23:00:00"
             ]
-            if diffch < 12:
+            if diffch < 24:
                 if current_time in NURTURE_TIME_DICT:
                     await days_to_nurture_auto()
                     await asyncio.sleep(1)
