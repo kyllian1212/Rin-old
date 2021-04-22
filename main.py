@@ -227,9 +227,9 @@ async def nurture(ctx):
         diffs = int((diff.total_seconds()+1))
         diffs_float = float((diff.total_seconds()+1))
         if diffs_float <= 1:
-            nurture_release_embed = discord.Embed(title="Nurture is out!!", color=0x00aeff)
-            nurture_release_embed.set_thumbnail(url="https://upload.wikimedia.org/wikipedia/en/0/07/Porter_Robinson_-_Nurture.png")
-            nurture_release_embed.add_field(name="Reminder", value="Please talk about the album itself *only* in <#821895682709389313> until the embargo ends! Talks about the album anywhere else in the server, even with spoiler tags, aren't allowed (only exception being the singles and remixes that were already released).", inline=False)
+            nurture_message_embed = discord.Embed(title="Nurture is out!!", color=0x00aeff)
+            nurture_message_embed.set_thumbnail(url="https://upload.wikimedia.org/wikipedia/en/0/07/Porter_Robinson_-_Nurture.png")
+            nurture_message_embed.add_field(name="Reminder", value="Please talk about the album itself *only* in <#821895682709389313> until the embargo ends! Talks about the album anywhere else in the server, even with spoiler tags, aren't allowed (only exception being the singles and remixes that were already released).", inline=False)
         elif diffm <= 1:
             nurture_message_embed = discord.Embed(title="There are " + str(diffs) + " seconds left before Nurture releases (in the NZST timezone)", color=0x00aeff)
         elif diffh <= 2:
