@@ -99,22 +99,3 @@ song_library=[
         ["Heavy With Hoping", artist_library[2], convert(4,1)],  
         ["Borealis", artist_library[2], convert(4, 45)],    
     ]
-
-#song library to play in order for a few days when nurture is released
-song_library_nurture=[
-        ["Lifelike", artist_library[0], convert(1, 35)],
-        ["Look At The Sky", artist_library[0], convert(5, 10)],  
-        ["Get Your Wish", artist_library[0], convert(3, 38)],  
-        ["Wind Tempos", artist_library[0], convert(6, 4)],
-        ["Musician", artist_library[0], convert(3, 58)],
-        ["do-re-mi-fa-so-la-ti-do", artist_library[0], convert(3, 35)],
-        ["Mother", artist_library[0], convert(3, 36)],
-        ["dullscythe", artist_library[0], convert(4, 0)],
-        ["Sweet Time", artist_library[0], convert(4, 12)],
-        ["Mirror", artist_library[0], convert(5, 7)],
-        ["Something Comforting", artist_library[0], convert(4, 42)],  
-        ["Blossom", artist_library[0], convert(3, 46)],
-        ["Unfold (with Totally Enormous Extinct Dinosaurs)", artist_library[0], convert(4, 46)],
-        ["Trying to Feel Alive", artist_library[0], convert(4, 44)],
-        ["fullmoon lullaby (with Wednesday Campanella)", artist_library[0], convert(4, 3)]
-    ]

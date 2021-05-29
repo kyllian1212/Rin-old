@@ -314,11 +314,11 @@ async def status_task():
         while True:
             variable = random.randint(0, (len(sl.song_library)-1))
             if str(version).endswith("-dev"):
-                await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name="[DEV MODE] " + sl.song_library_nurture[variable][0] + " by " + sl.song_library_nurture[variable][1]))
+                await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name="[DEV MODE] " + sl.song_library[variable][0] + " by " + sl.song_library[variable][1]))
             else:
-                await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=sl.song_library_nurture[variable][0] + " by " + sl.song_library_nurture[variable][1]))
+                await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=sl.song_library[variable][0] + " by " + sl.song_library[variable][1]))
             #DONT FORGET TO AWAIT A ASYNCIO.SLEEP() COMMAND!!!!!
-            await asyncio.sleep(sl.song_library_nurture[variable][2])
+            await asyncio.sleep(sl.song_library[variable][2])
     except:
         await crash_handler()
         await status_task()
