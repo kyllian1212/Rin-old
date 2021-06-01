@@ -18,8 +18,8 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
 
 #make sure to change the version when updated!
-version = "v0.3.17"
-version_date = "29/05/2021"
+version = "v0.3.18"
+version_date = "02/06/2021"
 
 #dev mode is when i run the bot (dont forget to disable it!!!)
 devmode = False
@@ -224,6 +224,7 @@ async def on_reaction_add(reaction, user):
         guild = bot.get_guild(186610204023062528)
         mod_role = guild.get_role(219977258453041152)
         temp_mod_role = guild.get_role(816596360064532501)
+        sky_marshal = guild.get_role(782224911648948244)
 
         if reaction.count == 1:
             if devmode:
@@ -251,7 +252,7 @@ async def on_reaction_add(reaction, user):
                             await reacted_message.delete()
                         else:
                             for role in user.roles:
-                                if role == mod_role or role == temp_mod_role:
+                                if role == mod_role or role == temp_mod_role or role == sky_marshal:
                                     #report_confirmation_embed = discord.Embed(title="The message has been reported.", color=0xff0000)
                                     await reacted_message.delete()
                                     mod_report = True
@@ -295,7 +296,7 @@ async def on_reaction_add(reaction, user):
                     await reacted_message.delete()
                 else:
                     for role in user.roles:
-                        if role == mod_role:
+                        if role == mod_role or role == temp_mod_role or role == sky_marshal:
                             await reacted_message.delete()
 
     #put crash handler in another function   
