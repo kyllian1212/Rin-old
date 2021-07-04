@@ -18,8 +18,8 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
 
 #make sure to change the version when updated!
-version = "v0.3.18"
-version_date = "02/06/2021"
+version = "v◈.◈.◈"
+version_date = "05/07/2021"
 
 #dev mode is when i run the bot (dont forget to disable it!!!)
 devmode = False
@@ -87,8 +87,12 @@ async def on_ready():
         bot.loop.create_task(status_task())
 
         #full boot sequence successfully completed
-        await bot.get_channel(772219545082396692).send(embed=init_message_embed)
-        await bot.get_guild(186610204023062528).get_member(307932112294772737).edit(nick="Rin | " + version)
+        if not devmode:
+            await bot.get_channel(772219545082396692).send(embed=init_message_embed)
+            await bot.get_guild(186610204023062528).get_member(307932112294772737).edit(nick="Rin | " + version)
+        else:
+            await bot.get_channel(855228682166599741).send(embed=init_message_embed)
+            await bot.get_guild(849034525861740571).get_member(849410467507601459).edit(nick="Rin | " + version)
         
     except:
         await crash_handler()
@@ -98,23 +102,32 @@ async def on_ready():
 @bot.command()
 async def quit(ctx):
     try:
-        now = datetime.now()
-        guild = bot.get_guild(186610204023062528)
-        mod_role = guild.get_role(219977258453041152)
-        message_author = ctx.author
-        is_mod = False
-        for role in message_author.roles:
-            if role == mod_role:
-                is_mod = True
-        if is_mod:
+        if not devmode:
+            now = datetime.now()
+            guild = bot.get_guild(186610204023062528)
+            mod_role = guild.get_role(219977258453041152)
+            message_author = ctx.author
+            is_mod = False
+            for role in message_author.roles:
+                if role == mod_role:
+                    is_mod = True
+            if is_mod:
+                await ctx.channel.send("bot has been shutdown.")
+                quit_message_embed = discord.Embed(title="bot has successfully shutdown.", color=0x00aeff)
+                quit_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")))
+                await bot.get_channel(772219545082396692).send(embed=quit_message_embed)
+                await bot.loop.stop()
+                await os._exit(1)
+            else:
+                await mod_only_command(ctx)
+        else:
+            now = datetime.now()
             await ctx.channel.send("bot has been shutdown.")
             quit_message_embed = discord.Embed(title="bot has successfully shutdown.", color=0x00aeff)
             quit_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")))
-            await bot.get_channel(772219545082396692).send(embed=quit_message_embed)
+            await bot.get_channel(855228682166599741).send(embed=quit_message_embed)
             await bot.loop.stop()
             await os._exit(1)
-        else:
-            await mod_only_command(ctx)
     except:
         await crash_handler()
         raise
@@ -122,14 +135,18 @@ async def quit(ctx):
 @bot.command()
 async def say(ctx, *, arg):
     try:
-        guild = bot.get_guild(186610204023062528)
-        mod_role = guild.get_role(219977258453041152)
-        message_author = ctx.author
-        is_mod = False
-        for role in message_author.roles:
-            if role == mod_role:
-                is_mod = True
-        if is_mod:
+        if not devmode:
+            guild = bot.get_guild(186610204023062528)
+            mod_role = guild.get_role(219977258453041152)
+            message_author = ctx.author
+            is_mod = False
+            for role in message_author.roles:
+                if role == mod_role:
+                    is_mod = True
+            if is_mod:
+                await ctx.message.delete()
+                await ctx.channel.send(arg)
+        else:
             await ctx.message.delete()
             await ctx.channel.send(arg)
     except:
@@ -139,14 +156,18 @@ async def say(ctx, *, arg):
 @bot.command()
 async def saytts(ctx, *, arg):
     try:
-        guild = bot.get_guild(186610204023062528)
-        mod_role = guild.get_role(219977258453041152)
-        message_author = ctx.author
-        is_mod = False
-        for role in message_author.roles:
-            if role == mod_role:
-                is_mod = True
-        if is_mod:
+        if not devmode:
+            guild = bot.get_guild(186610204023062528)
+            mod_role = guild.get_role(219977258453041152)
+            message_author = ctx.author
+            is_mod = False
+            for role in message_author.roles:
+                if role == mod_role:
+                    is_mod = True
+            if is_mod:
+                await ctx.message.delete()
+                await ctx.channel.send(arg, tts=True)
+        else:
             await ctx.message.delete()
             await ctx.channel.send(arg, tts=True)
     except:
@@ -183,7 +204,8 @@ async def changelog(ctx):
     try:
         now = datetime.now()
         lastversion = version + " - " + version_date
-        changelog = open('lastchange_bot.txt', 'r').read()
+        #changelog = open('lastchange_bot.txt', 'r').read()
+        changelog = "**## v◈.◈.◈ - 05/07/2021**\n* ◈\n* ◈\n* ◈\n* ◈\n* ◈"
         changelog_message_embed = discord.Embed(title="hello i've updated the bot :) | " + lastversion, description=changelog, url="https://github.com/kyllian1212/Rin/blob/master/changelog.md", color=0x00aeff)
         changelog_message_embed.set_thumbnail(url=bot.user.avatar_url)
         changelog_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")) + "  •  full changelog available by clicking the link above")
@@ -228,7 +250,7 @@ async def on_reaction_add(reaction, user):
 
         if reaction.count == 1:
             if devmode:
-                channel_report = bot.get_channel(775080183602085899)
+                channel_report = bot.get_channel(855228720154935316)
             else:
                 channel_report = bot.get_channel(413488194819194891)
             long_message = False
@@ -332,14 +354,16 @@ async def crash_handler():
         crash_traceback = traceback.format_exc()
         crash_message_embed = discord.Embed(title="it crashed :(", description=crash_traceback, color=0xff0000)
         crash_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")))
-        await bot.get_channel(772219545082396692).send(embed=crash_message_embed)
+        if not devmode: await bot.get_channel(772219545082396692).send(embed=crash_message_embed)
+        else: await bot.get_channel(855228682166599741).send(embed=crash_message_embed)
     except:
         try:
             now = datetime.now()
             crash_traceback = traceback.format_exc()
             crash_message_embed = discord.Embed(title="the crash handler crashed!! D:", description=crash_traceback, color=0xff0000)
             crash_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")))
-            await bot.get_channel(772219545082396692).send(embed=crash_message_embed)
+            if not devmode: await bot.get_channel(772219545082396692).send(embed=crash_message_embed)
+            else: await bot.get_channel(855228682166599741).send(embed=crash_message_embed)
         except:
             raise
 
