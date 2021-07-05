@@ -84,7 +84,13 @@
 * reverted rin's rich presence to random songs instead of nurture in order
 ## v0.3.18 - 02/06/2021
 * added the 'sky marshall' role to the list of roles that allows you to delete messages when you report them
-## v◈.◈.◈ - 05/07/2021
+## v◈.◈.◈ - 04/07/2021
+* ◈
+* ◈
+* ◈
+* ◈
+* ◈
+## v◈.◈.1 - 05/07/2021
 * ◈
 * ◈
 * ◈

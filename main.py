@@ -18,7 +18,7 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
 
 #make sure to change the version when updated!
-version = "v◈.◈.◈"
+version = "v◈.◈.1"
 version_date = "05/07/2021"
 
 #dev mode is when i run the bot (dont forget to disable it!!!)
@@ -27,6 +27,39 @@ devmode = False
 #nurture time is for the countdown in #nurture
 NURTURE_TIME = os.getenv('NURTURE_TIME')
 NURTURE_TIME_2 = os.getenv('NURTURE_TIME_2')
+
+#◈
+P0 = os.getenv('P0')
+P1 = os.getenv('P1')
+P2 = os.getenv('P2')
+P3 = os.getenv('P3')
+P4 = os.getenv('P4')
+P5 = os.getenv('P5')
+P6 = os.getenv('P6')
+P7 = os.getenv('P7')
+P8 = os.getenv('P8')
+P9 = os.getenv('P9')
+P10 = os.getenv('P10')
+P11 = os.getenv('P11')
+P12 = os.getenv('P12')
+P13 = os.getenv('P13')
+P14 = os.getenv('P14')
+P15 = os.getenv('P15')
+P16 = os.getenv('P16')
+P17 = os.getenv('P17')
+P18 = os.getenv('P18')
+P19 = os.getenv('P19')
+P20 = os.getenv('P20')
+P21 = os.getenv('P21')
+P22 = os.getenv('P22')
+P23 = os.getenv('P23')
+P24 = os.getenv('P24')
+P25 = os.getenv('P25')
+P26 = os.getenv('P26')
+P27 = os.getenv('P27')
+P28 = os.getenv('P28')
+P29 = os.getenv('P29')
+P30 = os.getenv('P30')
 
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix="!!", intents=intents)
@@ -329,6 +362,145 @@ async def on_reaction_add(reaction, user):
 @bot.event
 async def mod_only_command(message):
     await message.channel.send("you cannot do this action as you are not a mod!")
+
+@bot.command()
+async def a(ctx):
+    #replace with #announcements channel
+    try:
+        #REPLACE ALL THE IDS WITH THE RIGHT CHANNEL IDS AND HAVE THEM ALL SEND A DATE
+        annoucements_channel = bot.get_channel(220342628657397760)
+        arg_channel = bot.get_channel(861033000312766504)
+        liveshows_channel = bot.get_channel(231901025299202048)
+        tech_channel = bot.get_channel(489902362660569108)
+        nmd_channel = bot.get_channel(451955434572480513) 
+        general_channel = bot.get_channel(186610204023062528) 
+        nurture_channel = bot.get_channel(671792848135389184) 
+        virtualself_channel = bot.get_channel(372824307719733259)
+        eventnights_channel = bot.get_channel(282634370957967360) 
+        livestream_channel = bot.get_channel(693569879143612436) 
+        food_channel = bot.get_channel(416408989509877777) 
+        if not devmode:
+            guild = bot.get_guild(186610204023062528)
+            mod_role = guild.get_role(219977258453041152)
+            message_author = ctx.author
+            is_mod = False
+            for role in message_author.roles:
+                if role == mod_role:
+                    is_mod = True
+            if is_mod:
+                await annoucements_channel.send("◈\n\n<#861033000312766504>\n\n<@&313117489485709314>\n\n**[02/01/2020]**")
+                await arg_channel.send("**GOOD LUCK**\n```enter !!password```")
+                await liveshows_channel.send("**[01/03/2020]**")
+                await tech_channel.send("**[03/08/2020]**")
+                await nmd_channel.send("**[04/08/2020]**\n**[10/31/2020]**")
+                await general_channel.send("**[05/23/2020]**")
+                await nurture_channel.send("**[06/21/2020]**")
+                await virtualself_channel.send("**[07/20/2020]**")
+                await eventnights_channel.send("**[08/30/2020]**")
+                await livestream_channel.send("**[09/09/2020]**")
+                await food_channel.send("**[11/01/2020]**")
+        else:
+            await annoucements_channel.send("◈\n\n<#861033000312766504>\n\n<@&313117489485709314>\n\n**[02/01/2020]**")
+            await arg_channel.send("**GOOD LUCK**\n```enter !!password```")
+            await liveshows_channel.send("**[01/03/2020]**")
+            await tech_channel.send("**[03/08/2020]**")
+            await nmd_channel.send("**[04/08/2020]**\n**[10/31/2020]**")
+            await general_channel.send("**[05/23/2020]**")
+            await nurture_channel.send("**[06/21/2020]**")
+            await virtualself_channel.send("**[07/20/2020]**")
+            await eventnights_channel.send("**[08/30/2020]**")
+            await livestream_channel.send("**[09/09/2020]**")
+            await food_channel.send("**[11/01/2020]**")
+    except:
+        await crash_handler()
+        raise
+
+@bot.command()
+async def password(ctx, *, arg):
+    try:
+        answer = arg
+        #to progressively comment/decomment
+        '''1'''
+        if answer == P1:
+            await ctx.channel.send(P2)
+        elif answer == P3:
+            await ctx.channel.send(P4)
+        else:
+            await ctx.channel.send(P0)
+        
+        '''2
+        if answer.casefold() == P5.casefold():
+            await ctx.channel.send(P6)
+        elif answer.casefold() == P7.casefold():
+            await ctx.channel.send(P8)
+        else:
+            await ctx.channel.send(P0)
+        '''
+
+        '''3
+        if answer.casefold() == P9.casefold():
+            await ctx.channel.send(P10)
+        elif answer.casefold() == P11.casefold():
+            await ctx.channel.send(P12)
+        else:
+            await ctx.channel.send(P0)
+        '''
+        
+        '''4
+        if answer.casefold() == P13.casefold():
+            await ctx.channel.send(P14)
+        else:
+            await ctx.channel.send(P0)
+        '''
+        
+        '''5
+        if answer.casefold() == P15.casefold():
+            await ctx.channel.send(P16)
+        else:
+            await ctx.channel.send(P0)
+        '''
+
+        '''6
+        if answer.casefold() == P17.casefold():
+            await ctx.channel.send(P18)
+        else:
+            await ctx.channel.send(P0)
+        '''
+
+        '''7
+        if answer.casefold() == P19.casefold():
+            await ctx.channel.send(P20) 
+        elif answer.casefold() == P21.casefold():
+            await ctx.channel.send(P22) 
+        else:
+            await ctx.channel.send(P0)
+        '''
+        
+        '''8
+        if answer.casefold() == P23.casefold():
+            await ctx.channel.send(P24) 
+        else:
+            await ctx.channel.send(P0)
+        '''
+        
+        '''9
+        if answer.casefold() == P25.casefold():
+            await ctx.channel.send(P26) 
+        else:
+            await ctx.channel.send(P0)
+        '''
+        
+        '''10
+        if answer.casefold() == P27.casefold():
+            await ctx.channel.send(P28)
+        elif answer.casefold() == P29.casefold():
+            await ctx.channel.send(P30) 
+        else:
+            await ctx.channel.send(P0)
+        '''
+    except:
+        await crash_handler()
+        raise
 
 #rin presence
 async def status_task():
