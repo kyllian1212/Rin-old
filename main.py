@@ -404,7 +404,7 @@ async def password(ctx, *, arg):
         if answer.casefold() == P5.casefold():
             await ctx.channel.send(P6)
         elif answer.casefold() == P7.casefold():
-            await ctx.channel.send(P19)
+            await ctx.channel.send(P21)
         elif answer.casefold() == P9.casefold():
             await ctx.channel.send(P10)
         elif answer.casefold() == P11.casefold():
