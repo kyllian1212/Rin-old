@@ -18,8 +18,8 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
 
 #make sure to change the version when updated!
-version = "v◈.◈.1"
-version_date = "05/07/2021"
+version = "v◈.◈.2"
+version_date = "06/07/2021"
 
 #dev mode is when i run the bot (dont forget to disable it!!!)
 devmode = False
@@ -364,21 +364,10 @@ async def mod_only_command(message):
     await message.channel.send("you cannot do this action as you are not a mod!")
 
 @bot.command()
-async def a(ctx):
-    #replace with #announcements channel
+async def b(ctx):
+    #replace with #◈ channel
     try:
-        #REPLACE ALL THE IDS WITH THE RIGHT CHANNEL IDS AND HAVE THEM ALL SEND A DATE
-        annoucements_channel = bot.get_channel(220342628657397760)
         arg_channel = bot.get_channel(861033000312766504)
-        liveshows_channel = bot.get_channel(231901025299202048)
-        tech_channel = bot.get_channel(489902362660569108)
-        nmd_channel = bot.get_channel(451955434572480513) 
-        general_channel = bot.get_channel(186610204023062528) 
-        nurture_channel = bot.get_channel(671792848135389184) 
-        virtualself_channel = bot.get_channel(372824307719733259)
-        eventnights_channel = bot.get_channel(282634370957967360) 
-        livestream_channel = bot.get_channel(693569879143612436) 
-        food_channel = bot.get_channel(416408989509877777) 
         if not devmode:
             guild = bot.get_guild(186610204023062528)
             mod_role = guild.get_role(219977258453041152)
@@ -388,29 +377,11 @@ async def a(ctx):
                 if role == mod_role:
                     is_mod = True
             if is_mod:
-                await annoucements_channel.send("◈\n\n<#861033000312766504>\n\n<@&313117489485709314>\n\n**[02/01/2020]**")
-                await arg_channel.send("**GOOD LUCK**\n```enter !!password```")
-                await liveshows_channel.send("**[01/03/2020]**")
-                await tech_channel.send("**[03/08/2020]**")
-                await nmd_channel.send("**[04/08/2020]**\n**[10/31/2020]**")
-                await general_channel.send("**[05/23/2020]**")
-                await nurture_channel.send("**[06/21/2020]**")
-                await virtualself_channel.send("**[07/20/2020]**")
-                await eventnights_channel.send("**[08/30/2020]**")
-                await livestream_channel.send("**[09/09/2020]**")
-                await food_channel.send("**[11/01/2020]**")
+                await arg_channel.send("https://media.discordapp.net/attachments/849034526595874828/856977050408583198/whats-up-traffic-sign-blue-sky-whats-up-traffic-sign-173259766.png")
+            else:
+                await mod_only_command(ctx)
         else:
-            await annoucements_channel.send("◈\n\n<#861033000312766504>\n\n<@&313117489485709314>\n\n**[02/01/2020]**")
-            await arg_channel.send("**GOOD LUCK**\n```enter !!password```")
-            await liveshows_channel.send("**[01/03/2020]**")
-            await tech_channel.send("**[03/08/2020]**")
-            await nmd_channel.send("**[04/08/2020]**\n**[10/31/2020]**")
-            await general_channel.send("**[05/23/2020]**")
-            await nurture_channel.send("**[06/21/2020]**")
-            await virtualself_channel.send("**[07/20/2020]**")
-            await eventnights_channel.send("**[08/30/2020]**")
-            await livestream_channel.send("**[09/09/2020]**")
-            await food_channel.send("**[11/01/2020]**")
+            await arg_channel.send("https://media.discordapp.net/attachments/849034526595874828/856977050408583198/whats-up-traffic-sign-blue-sky-whats-up-traffic-sign-173259766.png")
     except:
         await crash_handler()
         raise
@@ -420,23 +391,27 @@ async def password(ctx, *, arg):
     try:
         answer = arg
         #to progressively comment/decomment
-        '''1'''
+        '''1
         if answer == P1:
             await ctx.channel.send(P2)
         elif answer == P3:
             await ctx.channel.send(P4)
         else:
             await ctx.channel.send("**COME BACK TOMORROW 11am PT / 2pm ET / 7pm BST**")
+        '''
         
-        '''2
+        '''2'''
         if answer.casefold() == P5.casefold():
             await ctx.channel.send(P6)
         elif answer.casefold() == P7.casefold():
+            await ctx.channel.send(P19)
+        elif answer.casefold() == P9.casefold():
+            await ctx.channel.send(P10)
+        elif answer.casefold() == P11.casefold():
             await ctx.channel.send(P8)
         else:
             await ctx.channel.send(P0)
-        '''
-
+        
         '''3
         if answer.casefold() == P9.casefold():
             await ctx.channel.send(P10)
@@ -454,7 +429,9 @@ async def password(ctx, *, arg):
         '''
         
         '''5
-        if answer.casefold() == P15.casefold():
+        if answer.casefold() == P19.casefold():
+            await ctx.channel.send(P20):
+        elif answer.casefold() == P15.casefold():
             await ctx.channel.send(P16)
         else:
             await ctx.channel.send(P0)
