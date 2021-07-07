@@ -364,7 +364,7 @@ async def mod_only_command(message):
     await message.channel.send("you cannot do this action as you are not a mod!")
 
 @bot.command()
-async def b(ctx):
+async def c(ctx):
     #replace with #◈ channel
     try:
         arg_channel = bot.get_channel(861033000312766504)
@@ -377,104 +377,55 @@ async def b(ctx):
                 if role == mod_role:
                     is_mod = True
             if is_mod:
-                await arg_channel.send("https://media.discordapp.net/attachments/849034526595874828/856977050408583198/whats-up-traffic-sign-blue-sky-whats-up-traffic-sign-173259766.png")
+                await arg_channel.send("https://cdn.discordapp.com/attachments/855228682166599741/862142592463798292/-.wav")
             else:
                 await mod_only_command(ctx)
         else:
-            await arg_channel.send("https://media.discordapp.net/attachments/849034526595874828/856977050408583198/whats-up-traffic-sign-blue-sky-whats-up-traffic-sign-173259766.png")
+            await arg_channel.send("https://cdn.discordapp.com/attachments/855228682166599741/862142592463798292/-.wav")
     except:
         await crash_handler()
         raise
 
+answer_level = 0
 @bot.command()
 async def password(ctx, *, arg):
     try:
         answer = arg
-        #to progressively comment/decomment
-        '''1
-        if answer == P1:
+        global answer_level
+        if answer.casefold() == P1.casefold() and answer_level == 0:
             await ctx.channel.send(P2)
-        elif answer == P3:
+            answer_level = 1
+        elif answer.casefold() == P3.casefold() and answer_level == 1:
             await ctx.channel.send(P4)
-        else:
-            await ctx.channel.send("**COME BACK TOMORROW 11am PT / 2pm ET / 7pm BST**")
-        '''
-        
-        '''2'''
-        if answer.casefold() == P5.casefold():
+            answer_level = 2
+        elif answer.casefold() == P5.casefold() and answer_level == 2:
             await ctx.channel.send(P6)
-        elif answer.casefold() == P7.casefold():
-            await ctx.channel.send(P21)
-        elif answer.casefold() == P9.casefold():
-            await ctx.channel.send(P10)
-        elif answer.casefold() == P11.casefold():
+            answer_level = 3
+        elif answer.casefold() == P7.casefold() and answer_level == 3:
             await ctx.channel.send(P8)
-        else:
-            await ctx.channel.send("**COME BACK TOMORROW 11am PT / 2pm ET / 7pm BST**")
-        
-        '''3
-        if answer.casefold() == P9.casefold():
+            answer_level = 4
+        elif answer.casefold() == P9.casefold() and answer_level == 4:
             await ctx.channel.send(P10)
-        elif answer.casefold() == P11.casefold():
+            answer_level = 5
+        elif answer.casefold() == P11.casefold() and answer_level == 5:
             await ctx.channel.send(P12)
-        else:
-            await ctx.channel.send(P0)
-        '''
-        
-        '''4
-        if answer.casefold() == P13.casefold():
+            answer_level = 6
+        elif answer.casefold() == P13.casefold() and answer_level == 6:
             await ctx.channel.send(P14)
-        else:
-            await ctx.channel.send(P0)
-        '''
-        
-        '''5
-        if answer.casefold() == P19.casefold():
-            await ctx.channel.send(P20):
-        elif answer.casefold() == P15.casefold():
+            answer_level = 7
+        elif answer.casefold() == P15.casefold() and answer_level == 7:
             await ctx.channel.send(P16)
-        else:
-            await ctx.channel.send(P0)
-        '''
-
-        '''6
-        if answer.casefold() == P17.casefold():
+            answer_level = 8
+        elif answer.casefold() == P17.casefold() and answer_level == 8:
             await ctx.channel.send(P18)
+            answer_level = 9
+        elif answer.casefold() == P19.casefold() and answer_level == 9:
+            await ctx.channel.send(P20)
+            answer_level = 10
+        elif answer.casefold() == P21.casefold() and answer_level == 10:
+            await ctx.channel.send(P22)
         else:
             await ctx.channel.send(P0)
-        '''
-
-        '''7
-        if answer.casefold() == P19.casefold():
-            await ctx.channel.send(P20) 
-        elif answer.casefold() == P21.casefold():
-            await ctx.channel.send(P22) 
-        else:
-            await ctx.channel.send(P0)
-        '''
-        
-        '''8
-        if answer.casefold() == P23.casefold():
-            await ctx.channel.send(P24) 
-        else:
-            await ctx.channel.send(P0)
-        '''
-        
-        '''9
-        if answer.casefold() == P25.casefold():
-            await ctx.channel.send(P26) 
-        else:
-            await ctx.channel.send(P0)
-        '''
-        
-        '''10
-        if answer.casefold() == P27.casefold():
-            await ctx.channel.send(P28)
-        elif answer.casefold() == P29.casefold():
-            await ctx.channel.send(P30) 
-        else:
-            await ctx.channel.send(P0)
-        '''
     except:
         await crash_handler()
         raise
