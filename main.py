@@ -18,8 +18,8 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
 
 #make sure to change the version when updated!
-version = "v◈.◈.2b"
-version_date = "06/07/2021"
+version = "v◈.◈.3b"
+version_date = "07/07/2021"
 
 #dev mode is when i run the bot (dont forget to disable it!!!)
 devmode = False
@@ -425,7 +425,7 @@ async def password(ctx, *, arg):
         elif answer.casefold() == P21.casefold() and answer_level == 10:
             await ctx.channel.send(P22)
         else:
-            await ctx.channel.send(P0)
+            await ctx.channel.send("**COME BACK TOMORROW 11am PT / 2pm ET / 7pm BST")
     except:
         await crash_handler()
         raise
