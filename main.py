@@ -418,7 +418,7 @@ async def password(ctx, *, arg):
         if answer.casefold() == P1.casefold():
             await ctx.channel.send(P2)
         else:
-            await ctx.channel.send("**COME BACK TOMORROW 11am PT / 2pm ET / 7pm BST")
+            await ctx.channel.send(P0)
     except:
         await crash_handler()
         raise
