@@ -18,8 +18,8 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
 
 #make sure to change the version when updated!
-version = "v◈.◈.3b"
-version_date = "07/07/2021"
+version = "v◈.◈.4"
+version_date = "08/07/2021"
 
 #dev mode is when i run the bot (dont forget to disable it!!!)
 devmode = False
@@ -364,10 +364,19 @@ async def mod_only_command(message):
     await message.channel.send("you cannot do this action as you are not a mod!")
 
 @bot.command()
-async def c(ctx):
+async def d(ctx):
     #replace with #◈ channel
     try:
         arg_channel = bot.get_channel(861033000312766504)
+        general_channel = bot.get_channel(186610204023062528)
+        yml_channel = bot.get_channel(219333149212016640)
+        liveshows_channel = bot.get_channel(231901025299202048)
+        nmd_channel = bot.get_channel(451955434572480513) 
+        lg_channel = bot.get_channel(818207815684325407)
+        eventnights_channel = bot.get_channel(282634370957967360)
+        nurture_channel = bot.get_channel(671792848135389184) 
+        nurturelive_channel = bot.get_channel(821895682709389313)
+        virtualself_channel = bot.get_channel(372824307719733259)
         if not devmode:
             guild = bot.get_guild(186610204023062528)
             mod_role = guild.get_role(219977258453041152)
@@ -377,53 +386,37 @@ async def c(ctx):
                 if role == mod_role:
                     is_mod = True
             if is_mod:
-                await arg_channel.send("https://cdn.discordapp.com/attachments/855228682166599741/862142592463798292/-.wav")
-            else:
-                await mod_only_command(ctx)
+                await arg_channel.send("**[? - 1, ? - 3]**")
+                await general_channel.send("**28 / 18**")
+                await yml_channel.send("**26 / 66**")
+                await liveshows_channel.send("**34 / 10**")
+                await nmd_channel.send("**37 / 20**")
+                await lg_channel.send("**09 / 40**")
+                await eventnights_channel.send("**57 / 23**")
+                await nurture_channel.send("**96 / 06**")
+                await nurturelive_channel.send("**73 / 25**")
+                await virtualself_channel.send("**60 / 28**")
         else:
-            await arg_channel.send("https://cdn.discordapp.com/attachments/855228682166599741/862142592463798292/-.wav")
+            await arg_channel.send("**[? - 1, ? - 3]**")
+            await general_channel.send("**28 / 18**")
+            await yml_channel.send("**26 / 66**")
+            await liveshows_channel.send("**34 / 10**")
+            await nmd_channel.send("**37 / 20**")
+            await lg_channel.send("**09 / 40**")
+            await eventnights_channel.send("**57 / 23**")
+            await nurture_channel.send("**96 / 06**")
+            await nurturelive_channel.send("**73 / 25**")
+            await virtualself_channel.send("**60 / 28**")
     except:
         await crash_handler()
         raise
 
-answer_level = 0
 @bot.command()
 async def password(ctx, *, arg):
     try:
         answer = arg
-        global answer_level
-        if answer.casefold() == P1.casefold() and answer_level == 0:
+        if answer.casefold() == P1.casefold():
             await ctx.channel.send(P2)
-            answer_level = 1
-        elif answer.casefold() == P3.casefold() and answer_level == 1:
-            await ctx.channel.send(P4)
-            answer_level = 2
-        elif answer.casefold() == P5.casefold() and answer_level == 2:
-            await ctx.channel.send(P6)
-            answer_level = 3
-        elif answer.casefold() == P7.casefold() and answer_level == 3:
-            await ctx.channel.send(P8)
-            answer_level = 4
-        elif answer.casefold() == P9.casefold() and answer_level == 4:
-            await ctx.channel.send(P10)
-            answer_level = 5
-        elif answer.casefold() == P11.casefold() and answer_level == 5:
-            await ctx.channel.send(P12)
-            answer_level = 6
-        elif answer.casefold() == P13.casefold() and answer_level == 6:
-            await ctx.channel.send(P14)
-            answer_level = 7
-        elif answer.casefold() == P15.casefold() and answer_level == 7:
-            await ctx.channel.send(P16)
-            answer_level = 8
-        elif answer.casefold() == P17.casefold() and answer_level == 8:
-            await ctx.channel.send(P18)
-            answer_level = 9
-        elif answer.casefold() == P19.casefold() and answer_level == 9:
-            await ctx.channel.send(P20)
-            answer_level = 10
-        elif answer.casefold() == P21.casefold() and answer_level == 10:
-            await ctx.channel.send(P22)
         else:
             await ctx.channel.send("**COME BACK TOMORROW 11am PT / 2pm ET / 7pm BST")
     except:
