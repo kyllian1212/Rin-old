@@ -18,8 +18,8 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
 
 #make sure to change the version when updated!
-version = "v◈.◈.5b"
-version_date = "09/07/2021"
+version = "v◈.◈.6"
+version_date = "10/07/2021"
 
 #dev mode is when i run the bot (dont forget to disable it!!!)
 devmode = False
@@ -364,7 +364,7 @@ async def mod_only_command(message):
     await message.channel.send("you cannot do this action as you are not a mod!")
 
 @bot.command()
-async def e(ctx):
+async def f(ctx):
     #replace with #◈ channel
     try:
         arg_channel = bot.get_channel(861033000312766504)
@@ -377,28 +377,21 @@ async def e(ctx):
                 if role == mod_role:
                     is_mod = True
             if is_mod:
-                await arg_channel.send("https://media.discordapp.net/attachments/855228682166599741/863103413712322590/-.png")
+                await arg_channel.send("https://cdn.discordapp.com/attachments/225655831587323905/843624079122104340/-.wav")
         else:
-            await arg_channel.send("https://media.discordapp.net/attachments/855228682166599741/863103413712322590/-.png")
+            await arg_channel.send("https://cdn.discordapp.com/attachments/225655831587323905/843624079122104340/-.wav")
     except:
         await crash_handler()
         raise
 
-answer_level = 0
 @bot.command()
 async def password(ctx, *, arg):
     try:
         answer = arg
-        global answer_level
-        if (answer.casefold() == P1.casefold() or answer.casefold() == P2.casefold() or answer.casefold() == P3.casefold() or answer.casefold() == P4.casefold()) and answer_level == 0:
-            await ctx.channel.send(P5)
-        elif answer.casefold() == P6.casefold() and answer_level == 0:
-            await ctx.channel.send(P7)
-            answer_level = 1
-        elif answer.casefold() == P8.casefold() and answer_level == 1:
-            await ctx.channel.send(P9)
+        if answer.casefold() == P1.casefold():
+            await ctx.channel.send(P2)
         else:
-            await ctx.channel.send("**COME BACK TOMORROW 11am PT / 2pm ET / 7pm BST**")
+            await ctx.channel.send(P0)
     except:
         await crash_handler()
         raise
