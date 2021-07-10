@@ -18,8 +18,8 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
 
 #make sure to change the version when updated!
-version = "v◈.◈.6"
-version_date = "10/07/2021"
+version = "v0.3.19"
+version_date = "11/07/2021"
 
 #dev mode is when i run the bot (dont forget to disable it!!!)
 devmode = False
@@ -27,39 +27,6 @@ devmode = False
 #nurture time is for the countdown in #nurture
 NURTURE_TIME = os.getenv('NURTURE_TIME')
 NURTURE_TIME_2 = os.getenv('NURTURE_TIME_2')
-
-#◈
-P0 = os.getenv('P0')
-P1 = os.getenv('P1')
-P2 = os.getenv('P2')
-P3 = os.getenv('P3')
-P4 = os.getenv('P4')
-P5 = os.getenv('P5')
-P6 = os.getenv('P6')
-P7 = os.getenv('P7')
-P8 = os.getenv('P8')
-P9 = os.getenv('P9')
-P10 = os.getenv('P10')
-P11 = os.getenv('P11')
-P12 = os.getenv('P12')
-P13 = os.getenv('P13')
-P14 = os.getenv('P14')
-P15 = os.getenv('P15')
-P16 = os.getenv('P16')
-P17 = os.getenv('P17')
-P18 = os.getenv('P18')
-P19 = os.getenv('P19')
-P20 = os.getenv('P20')
-P21 = os.getenv('P21')
-P22 = os.getenv('P22')
-P23 = os.getenv('P23')
-P24 = os.getenv('P24')
-P25 = os.getenv('P25')
-P26 = os.getenv('P26')
-P27 = os.getenv('P27')
-P28 = os.getenv('P28')
-P29 = os.getenv('P29')
-P30 = os.getenv('P30')
 
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix="!!", intents=intents)
@@ -362,39 +329,6 @@ async def on_reaction_add(reaction, user):
 @bot.event
 async def mod_only_command(message):
     await message.channel.send("you cannot do this action as you are not a mod!")
-
-@bot.command()
-async def f(ctx):
-    #replace with #◈ channel
-    try:
-        arg_channel = bot.get_channel(861033000312766504)
-        if not devmode:
-            guild = bot.get_guild(186610204023062528)
-            mod_role = guild.get_role(219977258453041152)
-            message_author = ctx.author
-            is_mod = False
-            for role in message_author.roles:
-                if role == mod_role:
-                    is_mod = True
-            if is_mod:
-                await arg_channel.send("https://cdn.discordapp.com/attachments/225655831587323905/843624079122104340/-.wav")
-        else:
-            await arg_channel.send("https://cdn.discordapp.com/attachments/225655831587323905/843624079122104340/-.wav")
-    except:
-        await crash_handler()
-        raise
-
-@bot.command()
-async def password(ctx, *, arg):
-    try:
-        answer = arg
-        if answer.casefold() == P1.casefold():
-            await ctx.channel.send(P2)
-        else:
-            await ctx.channel.send(P0)
-    except:
-        await crash_handler()
-        raise
 
 #rin presence
 async def status_task():

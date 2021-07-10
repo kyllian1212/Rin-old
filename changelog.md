@@ -85,27 +85,20 @@
 ## v0.3.18 - 02/06/2021
 * added the 'sky marshall' role to the list of roles that allows you to delete messages when you report them
 ## v◈.◈.◈ - 04/07/2021
-* ◈
-* ◈
-* ◈
-* ◈
-* ◈
+* PRD event announcement "game" teasing
 ## v◈.◈.1 - 05/07/2021
-* ◈
-* ◈
-* ◈
-* ◈
-* ◈
+* PRD event announcement "game" part 1
 ## v◈.◈.2 - 06/07/2021
-* ◈
-* ◈
-* ◈
-* ◈
-* ◈
+* PRD event announcement "game" part 2
 ## v◈.◈.3 - 07/07/2021
-* ◈
-* ◈
-* ◈
-* ◈
-* ◈
-## v
+* PRD event announcement "game" part 3
+## v◈.◈.4 - 08/07/2021
+* PRD event announcement "game" part 4
+## v◈.◈.5 - 09/07/2021
+* PRD event announcement "game" part 5
+## v◈.◈.6 - 10/07/2021
+* PRD event announcement "game" part 6
+## v0.3.19 - 11/07/2021
+* removal of the code for the PRD event announcement "game"
+* some changes to the dev mode, to separate it from Rin in the PRD and test stuff elsewhere
+* actual new stuff for the bot coming Soon:tm:

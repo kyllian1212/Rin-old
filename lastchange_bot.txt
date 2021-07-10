@@ -1,6 +1,4 @@
-**## v◈.◈.4 - 08/07/2021**
-* ◈
-* ◈
-* ◈
-* ◈
-* ◈
+**## v0.3.19 - 11/07/2021**
+* removal of the code for the PRD event announcement "game"
+* some changes to the dev mode, to separate it from Rin in the PRD and test stuff elsewhere
+* actual new stuff for the bot coming Soon:tm:
