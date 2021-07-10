@@ -204,8 +204,7 @@ async def changelog(ctx):
     try:
         now = datetime.now()
         lastversion = version + " - " + version_date
-        #changelog = open('lastchange_bot.txt', 'r').read()
-        changelog = "**## v◈.◈.◈ - 05/07/2021**\n* ◈\n* ◈\n* ◈\n* ◈\n* ◈"
+        changelog = open('lastchange_bot.txt', 'r').read()
         changelog_message_embed = discord.Embed(title="hello i've updated the bot :) | " + lastversion, description=changelog, url="https://github.com/kyllian1212/Rin/blob/master/changelog.md", color=0x00aeff)
         changelog_message_embed.set_thumbnail(url=bot.user.avatar_url)
         changelog_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")) + "  •  full changelog available by clicking the link above")
