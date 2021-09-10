@@ -333,7 +333,7 @@ async def second_sky(ctx):
         d1 = datetime.now()
         d2 = datetime(2021, 9, 18, 18, 0, 0)
         diff = d2-d1
-        diffd = int((diff.total_seconds())/60/60/24)+1
+        diffd = int((diff.total_seconds())/60/60/24)
         diffh = int((diff.total_seconds()+1)/60/60)
         diffm = int((diff.total_seconds()+1)/60)
         diffs = int((diff.total_seconds()+1))
@@ -363,7 +363,7 @@ async def days_to_second_sky_auto():
         d1 = datetime.now()
         d2 = datetime(2021, 9, 18, 18, 0, 0)
         diff = d2-d1
-        diffd = int((diff.total_seconds())/60/60/24)+1
+        diffd = int((diff.total_seconds())/60/60/24)
         diffh = int((diff.total_seconds()+1)/60/60)
         diffm = int((diff.total_seconds()+1)/60)
         diffs = int((diff.total_seconds()+1))
