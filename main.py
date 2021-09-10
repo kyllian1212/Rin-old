@@ -18,15 +18,11 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
 
 #make sure to change the version when updated!
-version = "v0.3.19"
-version_date = "11/07/2021"
+version = "v0.3.20-final"
+version_date = "10/09/2021"
 
 #dev mode is when i run the bot (dont forget to disable it!!!)
 devmode = False
-
-#nurture time is for the countdown in #nurture
-NURTURE_TIME = os.getenv('NURTURE_TIME')
-NURTURE_TIME_2 = os.getenv('NURTURE_TIME_2')
 
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix="!!", intents=intents)
@@ -85,6 +81,7 @@ async def on_ready():
         init_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")))
 
         bot.loop.create_task(status_task())
+        bot.loop.create_task(countdown())
 
         #full boot sequence successfully completed
         if not devmode:
@@ -329,6 +326,80 @@ async def on_reaction_add(reaction, user):
 async def mod_only_command(message):
     await message.channel.send("you cannot do this action as you are not a mod!")
 
+@bot.command()
+async def second_sky(ctx):
+    try:
+        now = datetime.now()
+        d1 = datetime.now()
+        d2 = datetime(2021, 9, 18, 18, 0, 0)
+        diff = d2-d1
+        diffd = int((diff.total_seconds())/60/60/24)+1
+        diffh = int((diff.total_seconds()+1)/60/60)
+        diffm = int((diff.total_seconds()+1)/60)
+        diffs = int((diff.total_seconds()+1))
+        diffs_float = float((diff.total_seconds()+1))
+        if diffs_float <= 1:
+            nurture_message_embed = discord.Embed(title="Second Sky has started!", color=0x00aeff)
+            nurture_message_embed.set_thumbnail(url="https://aegwebprod.blob.core.windows.net/content/background_images/162/IPpWwBE74MaOweJ5r08IkkrJAVIvg20jybyR9fF3.png")
+            nurture_message_embed.add_field(name="Have fun!!!", value=":)", inline=False)
+        elif diffm <= 1:
+            nurture_message_embed = discord.Embed(title="There are " + str(diffs) + " seconds left before Second Sky begins", color=0x00aeff)
+        elif diffh <= 2:
+            nurture_message_embed = discord.Embed(title="There are " + str(diffm) + " minutes (" + str(diffs) + " seconds) left before Second Sky begins", color=0x00aeff)
+        elif diffh < 100:
+            nurture_message_embed = discord.Embed(title="There are " + str(diffh) + " hours (" + str(diffm) + " minutes, " + str(diffs) + " seconds) left before Second Sky begins", color=0x00aeff)
+        elif diffh >= 100:
+            nurture_message_embed = discord.Embed(title="There are " + str(diffd) + " days (" + str(diffh) + " hours, " + str(diffm) + " minutes, " + str(diffs) + " seconds) left before Second Sky begins", color=0x00aeff)
+        nurture_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")))
+        await ctx.channel.send(embed=nurture_message_embed)
+    except:
+        await crash_handler()
+        raise
+
+async def days_to_second_sky_auto():
+    try:
+        now = datetime.now()
+        channel_nurture = bot.get_channel(552216044068929655)
+        d1 = datetime.now()
+        d2 = datetime(2021, 9, 18, 18, 0, 0)
+        diff = d2-d1
+        diffd = int((diff.total_seconds())/60/60/24)+1
+        diffh = int((diff.total_seconds()+1)/60/60)
+        diffm = int((diff.total_seconds()+1)/60)
+        diffs = int((diff.total_seconds()+1))
+        diffs_float = float((diff.total_seconds()+1))
+        if diffs_float <= 1:
+            await nurture_release_check()
+        elif diffm <= 1:
+            nurture_auto_message_embed = discord.Embed(title="There are " + str(diffs) + " seconds left before Second Sky begins", color=0x00aeff)
+        elif diffh <= 2:
+            nurture_auto_message_embed = discord.Embed(title="There are " + str(diffm) + " minutes (" + str(diffs) + " seconds) left before Second Sky begins", color=0x00aeff)
+        elif diffh < 100:
+            nurture_auto_message_embed = discord.Embed(title="There are " + str(diffh) + " hours (" + str(diffm) + " minutes, " + str(diffs) + " seconds) left before Second Sky begins", color=0x00aeff)
+        elif diffh >= 100:
+            nurture_auto_message_embed = discord.Embed(title="There are " + str(diffd) + " days (" + str(diffh) + " hours, " + str(diffm) + " minutes, " + str(diffs) + " seconds) left before Second Sky begins", color=0x00aeff)
+        nurture_auto_message_embed.set_footer(text=str(now.strftime("%d/%m/%Y - %H:%M:%S")))
+        await channel_nurture.send(embed=nurture_auto_message_embed)
+    except:
+        await crash_handler()
+        raise
+
+async def nurture_release_check():
+    try:
+        nowwithms = str(datetime.now())
+        nowstrp = datetime.strptime(nowwithms, "%Y-%m-%d %H:%M:%S.%f")
+        nowfooter = nowstrp.strftime("%Y-%m-%d %H:%M:%S")
+        channel_nurture = bot.get_channel(552216044068929655)
+        nurture_release_embed = discord.Embed(title="Second Sky has started!", color=0x00aeff)
+        nurture_release_embed.set_thumbnail(url="https://aegwebprod.blob.core.windows.net/content/background_images/162/IPpWwBE74MaOweJ5r08IkkrJAVIvg20jybyR9fF3.png")
+        if str(nowfooter) == str(datetime(2021, 9, 18, 18, 0, 0)):
+            nurture_release_embed.add_field(name="Have fun!!!", value=":)", inline=False)
+        nurture_release_embed.set_footer(text=str(nowfooter))
+        await channel_nurture.send(embed=nurture_release_embed)
+    except:
+        await crash_handler()
+        raise
+
 #rin presence
 async def status_task():
     try:
@@ -344,6 +415,57 @@ async def status_task():
     except:
         await crash_handler()
         await status_task()
+        raise
+
+#countdown post
+async def countdown():
+    try:
+        await bot.wait_until_ready()
+        while True:
+            now = datetime.now()
+            current_time = now.strftime("%H:%M:%S")
+            dc1 = datetime.now()
+            dc2 = datetime(2021, 9, 18, 18, 0, 0)
+            diffc = dc2-dc1
+            diffch = int((diffc.total_seconds()+1)/60/60)
+            NURTURE_TIME_DICT=[
+                "00:00:00", "01:00:00", "02:00:00",
+                "03:00:00", "04:00:00", "05:00:00",
+                "06:00:00", "07:00:00", "08:00:00",
+                "09:00:00", "10:00:00", "11:00:00",
+                "12:00:00", "13:00:00", "14:00:00",
+                "15:07:00", "16:00:00", "17:00:00",
+                "18:00:00", "19:00:00", "20:00:00",
+                "21:00:00", "22:00:00", "23:00:00"
+            ]
+            if diffch < 24:
+                if current_time in NURTURE_TIME_DICT:
+                    await days_to_second_sky_auto()
+                    await asyncio.sleep(1)
+                else:
+                    await asyncio.sleep(0.5)
+            elif diffch < 72:
+                if current_time == NURTURE_TIME_DICT[0] or current_time == NURTURE_TIME_DICT[3] or current_time == NURTURE_TIME_DICT[6] or current_time == NURTURE_TIME_DICT[9] or current_time == NURTURE_TIME_DICT[12] or current_time == NURTURE_TIME_DICT[15] or current_time == NURTURE_TIME_DICT[18] or current_time == NURTURE_TIME_DICT[21]:
+                    await days_to_second_sky_auto()
+                    await asyncio.sleep(1)
+                else:
+                    await asyncio.sleep(0.5)
+            elif diffch < 168:
+                if current_time == NURTURE_TIME_DICT[0] or current_time == NURTURE_TIME_DICT[6] or current_time == NURTURE_TIME_DICT[12] or current_time == NURTURE_TIME_DICT[18]:
+                    await days_to_second_sky_auto()
+                    await asyncio.sleep(1)
+                else:
+                    await asyncio.sleep(0.5)
+            elif diffch >= 168:
+                if current_time == NURTURE_TIME_DICT[0] or current_time == NURTURE_TIME_DICT[12]:
+                    await days_to_second_sky_auto()
+                    await asyncio.sleep(1)
+                else:
+                    await asyncio.sleep(0.5)
+            else:
+                await asyncio.sleep(0.5)
+    except:
+        await crash_handler()
         raise
 
 #crash handler

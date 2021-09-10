@@ -102,3 +102,6 @@
 * removal of the code for the PRD event announcement "game"
 * some changes to the dev mode, to separate it from Rin in the PRD and test stuff elsewhere
 * actual new stuff for the bot coming Soon:tm:
+**## v0.3.20-final - 10/09/2021**
+* added a countdown for second sky
+* this is the final version of the bot (before rewritting) due to discord.py being deprecated
