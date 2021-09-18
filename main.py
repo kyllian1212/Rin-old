@@ -393,7 +393,7 @@ async def nurture_release_check():
         nurture_release_embed = discord.Embed(title="Second Sky has started!", color=0x00aeff)
         nurture_release_embed.set_thumbnail(url="https://aegwebprod.blob.core.windows.net/content/background_images/162/IPpWwBE74MaOweJ5r08IkkrJAVIvg20jybyR9fF3.png")
         if str(nowfooter) == str(datetime(2021, 9, 18, 18, 0, 0)):
-            nurture_release_embed.add_field(name="Have fun!!!", value=":)", inline=False)
+            nurture_release_embed.add_field(name="Have fun!!!", value="Please keep day 1 spoilers in <#888541098794958928>!", inline=False)
         nurture_release_embed.set_footer(text=str(nowfooter))
         await channel_nurture.send(embed=nurture_release_embed)
     except:
