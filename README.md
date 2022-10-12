@@ -1,4 +1,4 @@
-# THIS BOT IS OUTDATED. NEW VERSION AVAILABLE HERE https://github.com/kyllian1212/Rin-old
+# THIS BOT IS OUTDATED. NEW VERSION AVAILABLE HERE https://github.com/kyllian1212/Rin-rewrite
 
 # Rin
 
